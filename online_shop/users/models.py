@@ -4,6 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from datetime import timedelta
 
 # django built in apps
+from django.utils import timezone
 from django.apps import apps
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager as BUM
@@ -79,10 +80,8 @@ class BaseUserModel(BaseModel, AbstractBaseUser, PermissionsMixin):
         region="IR",
         verbose_name=_("شماره تلفن ")
     )
-    password = models.CharField(max_length=128, verbose_name=_("رمز ورود"))
-    last_login = models.DateTimeField(blank=True, null=True, verbose_name=_("آخرین ورود"))
     is_staff = models.BooleanField(default=False, verbose_name=_("ادمین است"))
-    is_active = models.BooleanField(default=True, verbose_name=_("فعال است"))
+    is_active = models.BooleanField(default=False, verbose_name=_("فعال است"))
     
 
     objects = BaseUserManager()
@@ -99,10 +98,6 @@ class BaseUserModel(BaseModel, AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return f"{self.phone} ({self.username})"
 
-    @property
-    def is_staff(self):
-        return self.is_staff
-    
 
 class ProfileModel(BaseModel):
     """
@@ -125,4 +120,27 @@ class CartModel(BaseModel):
         ordering = ("-created_at",)
         verbose_name = _(" سبد خرید")
         verbose_name_plural = _("سبد خرید ")
+
+
+# class OtpCodeModel(BaseModel):
+#     phone = models.CharField(max_length=11, verbose_name=_("شماره تلفن"))
+#     code = models.CharField(max_length=6, verbose_name=_(" کد تایید"), db_index=True,)
+#     is_used = models.BooleanField(default=False, verbose_name=_("استفاده شده"))
+#     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("ساخته شده در تاریخ"))
+
+#     class Meta:
+#         indexes = [
+#             models.Index(fields=["code", "is_used"]),
+#         ]
+#         ordering = ('-created_at',)
+#         verbose_name = _("کد تایید ")
+#         verbose_name_plural = _("کد تایید ")
+
+#     def __str__(self):
+#         return self.phone + ">>>>" + self.code
+
+#     def is_expired(self):
+#         return timezone.now() > self.created_at + timedelta(minutes=2)
+
+    
  

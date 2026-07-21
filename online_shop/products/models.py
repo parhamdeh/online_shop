@@ -23,7 +23,7 @@ class CategoryModel(BaseModel):
 class ProductsModel(BaseModel):
     category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name="product_category",  verbose_name=_("دسته بندی"))
     title = models.CharField(max_length=255, verbose_name=_("تیتر "), unique=True)
-    content = models.CharField(verbose_name=_("محتوا"))
+    content = models.TextField(verbose_name=_("محتوا"))
     image = models.ImageField(upload_to="products/images/",
         blank=True,
         null=True, verbose_name=_("عکس"))
@@ -35,6 +35,11 @@ class ProductsModel(BaseModel):
         ordering = ('-created_at',)
         verbose_name=_("محصول ")
         verbose_name_plural = _("محصول ")
+        indexes = [
+            models.Index(fields=["category", "is_active"]),
+            models.Index(fields=["is_active", "-created_at"]),
+            models.Index(fields=["-sales_count"]),
+    ]
     
     def __str__(self):
         return self.title

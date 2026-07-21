@@ -17,6 +17,7 @@ LOCAL_APPS = [
     'online_shop.core.apps.CoreConfig',
     'online_shop.common.apps.CommonConfig',
     'online_shop.users.apps.UsersConfig',
+    "online_shop.products.ProductConfig",
 ]
 
 THIRD_PARTY_APPS = [

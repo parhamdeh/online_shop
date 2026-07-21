@@ -17,7 +17,7 @@ LOCAL_APPS = [
     'online_shop.core.apps.CoreConfig',
     'online_shop.common.apps.CommonConfig',
     'online_shop.users.apps.UsersConfig',
-    "online_shop.products.ProductConfig",
+    "online_shop.products",
 ]
 
 THIRD_PARTY_APPS = [
@@ -28,6 +28,7 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'drf_spectacular',
     'django_extensions',
+    "drf_error_handler",
 ]
 
 INSTALLED_APPS = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "online_shop.api.middleware.RequestLoggingMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -115,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-# AUTH_USER_MODEL = 'users.BaseUser'
+AUTH_USER_MODEL = 'users.BaseUserModel'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -146,7 +148,10 @@ STORAGES = {
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'EXCEPTION_HANDLER': 'online_shop.api.exception_handlers.drf_default_with_modifications_exception_handler',
+    "DEFAULT_RENDERER_CLASSES": [
+        "online_shop.api.renderer.CustomResponseRenderer",
+    ],
+    'EXCEPTION_HANDLER': "drf_error_handler.handler.exception_handler",
     # 'EXCEPTION_HANDLER': 'online_shop.api.exception_handlers.hacksoft_proposed_exception_handler',
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -175,6 +180,59 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'path.to.LetterValidator'},
     {'NAME': 'path.to.SpecialCharValidator'},
 ]
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+os.makedirs(BASE_DIR / "logs", exist_ok=True)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname} {name} {module}:{lineno} - {message}",
+            "style": "{",
+        },
+    },
+
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "filename": BASE_DIR / "logs" / "django.log",
+            "when": "midnight",      
+            "interval": 1,           
+            "backupCount": 30,       
+            "encoding": "utf-8",
+            "formatter": "verbose",
+        },
+
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+
+    "root": {
+        "handlers": ["console", "file"],
+        "level": "INFO",
+    },
+}
+
+DRF_ERROR_HANDLER = {
+    "VALIDATION_ERROR_BUSINESS_STATUS_CODE": 1001,
+    "PARSE_ERROR_BUSINESS_STATUS_CODE": 1002,
+    "AUTHENTICATION_FAILED_BUSINESS_STATUS_CODE": 1003,
+    "NOT_AUTHENTICATION_BUSINESS_STATUS_CODE": 1004,
+    "PERMISSION_DENIED_BUSINESS_STATUS_CODE": 1005,
+    "NOT_FOUND_BUSINESS_STATUS_CODE": 1006,
+    "METHOD_NOT_ALLOWED_BUSINESS_STATUS_CODE": 1007,
+    "NOT_ACCEPTABLE_BUSINESS_STATUS_CODE": 1008,
+    "UNSUPPORTED_MEDIA_TYPE_BUSINESS_STATUS_CODE": 1009,
+    "THROTTLED_BUSINESS_STATUS_CODE": 1010,
+    "EXCEPTION_FORMATTER_CLASS": "utils.formatters.StatusExceptionFormatter",
+}
 
 from config.settings.cors import *  # noqa
 from config.settings.jwt import *  # noqa

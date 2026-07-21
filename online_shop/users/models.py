@@ -14,7 +14,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # local apps
-from common.models import BaseModel
+from online_shop.products.models import ProductsModel
+from online_shop.common.models import BaseModel
 
 
 
@@ -107,17 +108,21 @@ class ProfileModel(BaseModel):
     """
     Model for handle user profile and users info
     """
-    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user-profile", verbose_name=_("کاربر"))
+    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_profile", verbose_name=_("کاربر"))
 
     class Meta:
-        ordering = ("-created_at")
+        ordering = ("-created_at",)
         verbose_name = _("پروفایل کاربر")
         verbose_name_plural = _("پروفایل کاربر")
     
 
 class CartModel(BaseModel):
-    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user-cart", verbose_name=_("کاربر"))
+    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_cart", verbose_name=_("کاربر"))
     total = models.PositiveIntegerField(default=0)
-    products = models.ManyToManyField(ProductModel, null=True, blank=True)
+    products = models.ManyToManyField(ProductsModel, null=True, blank=True, related_name="products_in_cart", verbose_name=_("محصول"))
 
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = _(" سبد خرید")
+        verbose_name_plural = _("سبد خرید ")
  

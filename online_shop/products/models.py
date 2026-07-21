@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # local apps
-from online_shop.online_shop.common.models import BaseModel
+from online_shop.common.models import BaseModel
 
 
 
@@ -21,7 +21,7 @@ class CategoryModel(BaseModel):
 
 
 class ProductsModel(BaseModel):
-    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name="product-category",  verbose_name=_("دسته بندی"))
+    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name="product_category",  verbose_name=_("دسته بندی"))
     title = models.CharField(max_length=255, verbose_name=_("تیتر "), unique=True)
     content = models.CharField(verbose_name=_("محتوا"))
     image = models.ImageField(upload_to="products/images/",

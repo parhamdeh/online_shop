@@ -112,6 +112,9 @@ class ProfileModel(BaseModel):
     
 
 class CartModel(BaseModel):
+    """
+    shoping cart for handle user's targets
+    """
     user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_cart", verbose_name=_("کاربر"))
     total = models.PositiveIntegerField(default=0)
     products = models.ManyToManyField(ProductsModel, null=True, blank=True, related_name="products_in_cart", verbose_name=_("محصول"))

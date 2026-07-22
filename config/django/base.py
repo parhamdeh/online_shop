@@ -176,9 +176,9 @@ APP_DOMAIN = env("APP_DOMAIN", default="http://localhost:8000")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_PASSWORD_VALIDATORS = [
     # ... existing validators
-    {'NAME': 'path.to.NumberValidator'},
-    {'NAME': 'path.to.LetterValidator'},
-    {'NAME': 'path.to.SpecialCharValidator'},
+    {'NAME': 'online_shop.users.validators.NumberValidator'},
+    {'NAME': 'online_shop.users.validators.LetterValidator'},
+    {'NAME': 'online_shop.users.validators.SpecialCharValidator'},
 ]
 from pathlib import Path
 
@@ -234,6 +234,10 @@ DRF_ERROR_HANDLER = {
     "EXCEPTION_FORMATTER_CLASS": "utils.formatters.StatusExceptionFormatter",
 }
 
+
+
+from config.settings.kavenegar import *
+from config.settings.zarinpal import *
 from config.settings.cors import *  # noqa
 from config.settings.jwt import *  # noqa
 from config.settings.sessions import *  # noqa

@@ -3,6 +3,7 @@ from rest_framework import serializers
 from phonenumber_field.serializerfields import PhoneNumberField
 
 # local apps
+from online_shop.users.apis.login_serializer import UserOutputSerializer
 from online_shop.users.validators import LetterValidator, NumberValidator, SpecialCharValidator
 from online_shop.users.models import BaseUserModel
 
@@ -38,7 +39,4 @@ class VerifyOtpSerializer(serializers.Serializer):
 class RefreshTokenOutputSerializer(serializers.Serializer):
     refresh = serializers.CharField()
     access = serializers.CharField()
-    username = serializers.CharField()
-    phone = phone = PhoneNumberField(
-        region="IR",
-    )
+    user = UserOutputSerializer()

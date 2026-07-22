@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+app_name = "api"
 urlpatterns = [
-    # path('blog/', include(('online_shop.blog.urls', 'blog')))
+    path('account/', include(('online_shop.users.urls', 'account')))
 ]

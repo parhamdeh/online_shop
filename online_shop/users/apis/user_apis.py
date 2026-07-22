@@ -9,6 +9,11 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from rest_framework import status
+from drf_spectacular.utils import (
+    extend_schema,
+    OpenApiExample,
+    OpenApiResponse,
+)
 
 # local apps
 from online_shop.core.exceptions import ApplicationError
@@ -22,6 +27,45 @@ from online_shop.users.services.user_services import create_user_and_otp
 logger = logging.getLogger(__name__)
 
 
+
+@extend_schema(
+    tags=["Authentication"],
+    summary="Register a new user",
+    description=(
+        "Creates a new inactive user account, generates a one-time password (OTP), "
+        "and sends the verification code to the user's phone number. "
+        "The account must be verified before login."
+    ),
+    request=RegisterInputSerializer,
+    responses={
+        201: OpenApiResponse(
+            response=RegisterInputSerializer,
+            description="User registered successfully. OTP has been sent.",
+        ),
+        400: OpenApiResponse(
+            description="Invalid request data.",
+        ),
+        429: OpenApiResponse(
+            description="Too many requests. Please try again later.",
+        ),
+        500: OpenApiResponse(
+            description="Internal server error.",
+        ),
+    },
+    examples=[
+        OpenApiExample(
+            name="Register Request",
+            summary="Valid registration request",
+            description="Example request body for registering a new user.",
+            request_only=True,
+            value={
+                "username": "johndoe",
+                "phone": "09123456789",
+                "password": "StrongPassword123!"
+            },
+        ),
+    ],
+)
 class UserRegisterAPIView(CreateAPIView):
     serializer_class = RegisterInputSerializer
     renderer_classes = [CustomResponseRenderer]
@@ -31,11 +75,14 @@ class UserRegisterAPIView(CreateAPIView):
 
     def perform_create(self, serializer: type[BaseSerializer]):
         try:
-            otp = create_user_and_otp()
+            phone = serializer.validated_data.get("phone")
+            self.request.session["phone"] = phone
+            otp = create_user_and_otp(data=serializer.validated_data)
         except Exception as ex:
             logger.exception(f"database error {ex}")
             raise ApplicationError()
         
+        logger.info(f" otp successfuly sent for user, otp.code :{otp.code}")
         serializer.instance = otp
 
     def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:

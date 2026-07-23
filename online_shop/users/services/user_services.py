@@ -1,6 +1,6 @@
 # local apps
 from online_shop.common.types import DjangoModelType
-from online_shop.users.models import BaseUserModel, ProfileModel, CartModel
+from online_shop.users.models import BaseUserModel, ProfileModel, CartModel, UserWallet
 from online_shop.users.services.code_services import create_otp_code_for_user
 
 # django built in apps
@@ -23,12 +23,16 @@ def create_profile(*, user: BaseUserModel) -> DjangoModelType[ProfileModel]:
     return ProfileModel.objects.create(user=user)
 
 def create_cart(*, user: BaseUserModel) -> DjangoModelType[CartModel]:
-    return CartModel.objects.create(user=user, products=None)
+    return CartModel.objects.create(user=user)
+
+def create_wallet(*, user: BaseUserModel) -> DjangoModelType[UserWallet]:
+    return UserWallet.objects.create(user=user, balance=0)
 
 @transaction.atomic
 def register(*, data: dict):
     user = create_user(data=data)
     create_profile(user=user)
+    create_wallet(user=user)
     create_cart(user=user)
 
     return user

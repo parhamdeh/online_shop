@@ -18,7 +18,7 @@ from drf_spectacular.utils import (
 # local apps
 from online_shop.core.exceptions import ApplicationError
 from online_shop.api.throttle import UserRequestThrottle
-from online_shop.users.apis.user_serializers import RegisterInputSerializer
+from online_shop.users.apis.user_serializers import RegisterInputSerializer, VerifyOtpSerializer
 from online_shop.api.renderer import CustomResponseRenderer
 from online_shop.users.services.code_services import create_otp_code_for_user
 from online_shop.users.services.user_services import create_user_and_otp
@@ -75,22 +75,20 @@ class UserRegisterAPIView(CreateAPIView):
 
     def perform_create(self, serializer: type[BaseSerializer]):
         try:
-            phone = serializer.validated_data.get("phone")
-            self.request.session["phone"] = phone
             otp = create_user_and_otp(data=serializer.validated_data)
         except Exception as ex:
             logger.exception(f"database error {ex}")
-            raise ApplicationError()
+            raise ApplicationError(f"database error {ex}")
         
-        logger.info(f" otp successfuly sent for user, otp.code :{otp.code}")
-        serializer.instance = otp
+        logger.info(f" otp successfuly sent for user, otp.code :{otp}")
+        return otp
 
     def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer=serializer)
-
-        return Response(data=serializer(instance=serializer.instance).data,
+        
+        return Response(data={"message : code sent you successfuly"},
                         status=status.HTTP_201_CREATED)
 
 

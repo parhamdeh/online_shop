@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 # local apps
 from online_shop.products.models import ProductsModel
 from online_shop.common.models import BaseModel
+from online_shop.products.models import ProductsModel
 
 
 
@@ -125,25 +126,39 @@ class CartModel(BaseModel):
         verbose_name_plural = _("سبد خرید ")
 
 
-# class OtpCodeModel(BaseModel):
-#     phone = models.CharField(max_length=11, verbose_name=_("شماره تلفن"))
-#     code = models.CharField(max_length=6, verbose_name=_(" کد تایید"), db_index=True,)
-#     is_used = models.BooleanField(default=False, verbose_name=_("استفاده شده"))
-#     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("ساخته شده در تاریخ"))
+class UserOrder(BaseModel):
+    """
+    model for handle user orders 
+    """
+    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_order", verbose_name=_("کاربر"))
+    product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE, related_name="product", verbose_name=_("محصول"))
 
-#     class Meta:
-#         indexes = [
-#             models.Index(fields=["code", "is_used"]),
-#         ]
-#         ordering = ('-created_at',)
-#         verbose_name = _("کد تایید ")
-#         verbose_name_plural = _("کد تایید ")
-
-#     def __str__(self):
-#         return self.phone + ">>>>" + self.code
-
-#     def is_expired(self):
-#         return timezone.now() > self.created_at + timedelta(minutes=2)
-
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = _(" سفارش")
+        verbose_name_plural = _("سفارش")
     
- 
+    def __str__(self):
+        return f"order {self.product.title} for {self.user.username}"
+
+
+class UserWallet(BaseModel):
+    balance = models.PositiveIntegerField(default=0, verbose_name=_("موجودی به ریال"))
+    user = models.OneToOneField(BaseUserModel, on_delete=models.PROTECT, related_name="user_wallet", verbose_name=_("کاربر"))
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = _(" کیف پول")
+        verbose_name_plural = _("کیف پول")
+    
+    def __str__(self):
+        return f"wallet for {self.user.username} with {self.balance} rials balance"
+
+
+class OtpModel(BaseModel):
+    """
+    model for otp codes becuase cache didnt work
+    """
+
+    phone = PhoneNumberField(region="IR")
+    code = models.CharField()

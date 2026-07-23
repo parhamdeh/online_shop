@@ -4,7 +4,7 @@ from config.env import env
 
 # Docs: https://django-rest-framework-simplejwt.readthedocs.io/en/stable/settings.html
 
-ACCESS_TOKEN_LIFETIME_SECONDS = env("ACCESS_TOKEN_LIFETIME_SECONDS", default=60 * 5)  # 5 minutes
+ACCESS_TOKEN_LIFETIME_SECONDS = env("ACCESS_TOKEN_LIFETIME_SECONDS", default=60 * 50)  # 5 minutes
 REFRESH_TOKEN_LIFETIME_SECONDS = env("REFRESH_TOKEN_LIFETIME_SECONDS", default=60 * 60 * 24 * 7)  # 7 days
 
 SIMPLE_JWT = {

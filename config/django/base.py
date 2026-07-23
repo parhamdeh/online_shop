@@ -18,6 +18,7 @@ LOCAL_APPS = [
     'online_shop.common.apps.CommonConfig',
     'online_shop.users.apps.UsersConfig',
     "online_shop.products",
+    "online_shop.sms_gateway",
 ]
 
 THIRD_PARTY_APPS = [
@@ -156,15 +157,22 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    'DEFAULT_AUTHENTICATION_CLASSES': []
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
 }
 
 
 # Redis
 CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': env("REDIS_LOCATION", default="redis://localhost:6379"),
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": False,
+
+        }
     }
 }
 # Cache time to live is 15 minutes.
@@ -231,7 +239,7 @@ DRF_ERROR_HANDLER = {
     "NOT_ACCEPTABLE_BUSINESS_STATUS_CODE": 1008,
     "UNSUPPORTED_MEDIA_TYPE_BUSINESS_STATUS_CODE": 1009,
     "THROTTLED_BUSINESS_STATUS_CODE": 1010,
-    "EXCEPTION_FORMATTER_CLASS": "utils.formatters.StatusExceptionFormatter",
+    "EXCEPTION_FORMATTER_CLASS": "online_shop.utils.formatters.StatusExceptionFormatter",
 }
 
 

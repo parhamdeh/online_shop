@@ -86,11 +86,10 @@ class VerifyOtpAPIView(UpdateAPIView):
 
     def perform_update(self, serializer: type[BaseSerializer]) -> ...:
         try:
-            phone = self.request.session["phone"]
-            user = check_otp_and_update_user_is_active(data=serializer.validated_data, phone=phone)
+            user = check_otp_and_update_user_is_active(data=serializer.validated_data)
         except Exception as ex:
             logger.exception(f"database error {ex}")
-            raise ApplicationError()
+            raise ApplicationError(f"database error {ex}")
         
         return user
     
@@ -98,11 +97,12 @@ class VerifyOtpAPIView(UpdateAPIView):
         serializer = VerifyOtpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
+
         user = self.perform_update(serializer=serializer)
         token = RefreshToken.for_user(user=user)
         out_put_data = {
-            "access_token" : str(token.access_token),
-            "refresh_token" : str(token),
+            "access" : str(token.access_token),
+            "refresh" : str(token),
             "user" : user,
         }
         

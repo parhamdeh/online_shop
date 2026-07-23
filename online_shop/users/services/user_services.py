@@ -1,5 +1,7 @@
 # local apps
 from online_shop.common.types import DjangoModelType
+from online_shop.core.exceptions import ApplicationError
+from online_shop.users.selectors.user_selectors import get_user_by_id
 from online_shop.users.models import BaseUserModel, ProfileModel, CartModel, UserWallet
 from online_shop.users.services.code_services import create_otp_code_for_user
 
@@ -9,7 +11,11 @@ from django.db import transaction
 
 
 def get_user_or_404(*, user_id: int) -> DjangoModelType[BaseUserModel]:
-    ...
+    try:
+        user = get_user_by_id(user_id=user_id).get()
+    except Exception as ex:
+        raise ApplicationError(message=ex)
+    return user
 
 def create_user(*, data: dict) -> DjangoModelType[BaseUserModel]:
     return BaseUserModel.objects.create_user(
@@ -56,3 +62,17 @@ def activate_user(*, phone: str):
         user.save(update_fields=["is_active"])
 
     return user
+
+def update_user(*, updated_data: dict, user: BaseUserModel) -> DjangoModelType[BaseUserModel]:
+    for key, value in updated_data.items():
+        setattr(user, key, value)
+    user.save(update_fields=updated_data.keys())
+    return user
+
+def full_update(*, data: dict, user_id: int) -> DjangoModelType[BaseUserModel]:
+    user = get_user_or_404(user_id=user_id)
+    return update_user(user=user, updated_data=data)
+
+def partial_update(*, data: dict, user_id: int) -> DjangoModelType[BaseUserModel]:
+    user = get_user_or_404(user_id=user_id)
+    return update_user(user=user, updated_data=data)

@@ -23,14 +23,11 @@ class CartOutput(serializers.ModelSerializer):
 
 
 class WalletOutputSerializer(serializers.ModelSerializer):
-    class MetaL:
+    class Meta:
         model = UserWallet
         exclude = ("user",)
 
 
 class ProfileSerializer(serializers.Serializer):
     user = UserOutput()
-    wallet = WalletOutputSerializer()
-    orders = OrderOutputSerializer(many=True)
-    cart = CartOutput(many=True)
-
+    

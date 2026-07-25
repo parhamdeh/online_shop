@@ -9,7 +9,7 @@ from online_shop.products.models import ProductsModel
 
 
 def get_product_by_id(*, product_id: int) -> ProductsModel:
-    return ProductsModel.objects.filter(product_id=product_id)
+    return ProductsModel.objects.filter(id=product_id)
 
 def get_products_list(*, filters=None) -> QuerySet[ProductsModel]:
     filters = filters or {}

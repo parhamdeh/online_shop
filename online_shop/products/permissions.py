@@ -23,3 +23,12 @@ class SeeProductDetail(BasePermission):
             user=request.user,
             product=obj,
         ).exists()
+
+
+class DeleteCommentAndLike(BasePermission):
+    def has_object_permission(self, request: Request, view: GenericAPIView, obj) -> bool:
+        return bool(
+            request.user.is_authenticated and (
+                obj.user == request.user
+            )
+        )

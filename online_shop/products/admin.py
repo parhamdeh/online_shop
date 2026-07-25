@@ -37,7 +37,8 @@ class ProductAdmin(ModelAdmin):
 
     list_filter = (
         "category",
-        "is_premium",
+        "price",
+        "is_active",
     )
 
     search_fields = (
@@ -138,13 +139,13 @@ class CommentAdmin(ModelAdmin):
     list_display = (
         "id",
         "content",
-        "user.username",
+        "get_username",
         "product",
         "created_at",
     )
     search_fields = (
         "product",
-        "user.username",
+        "get_username",
     )
     readonly_fields = (
     "created_at",
@@ -167,6 +168,10 @@ class CommentAdmin(ModelAdmin):
     def display_truncate_comment(self, obj):
         return Truncator(obj.content).chars(50)
 
+    @admin.display(description="User")
+    def get_username(self, obj):
+        return obj.user.username
+
 
 @admin.register(LikeModel)
 class FavoritPostAdmin(ModelAdmin):
@@ -174,8 +179,8 @@ class FavoritPostAdmin(ModelAdmin):
     show_full_result_count = False
     list_display = (
         "id",
-        "user.username",
-        "product.title",
+        "get_username",
+        "get_product",
         "created_at",
     )
     search_fields = (
@@ -205,3 +210,11 @@ class FavoritPostAdmin(ModelAdmin):
     @admin.display(description='', empty_value='_')
     def display_truncate_favorite_post(self, obj):
         return Truncator(obj.post.title).chars(50)
+
+    @admin.display(description="Product")
+    def get_product(self, obj):
+        return obj.product.title
+
+    @admin.display(description="User")
+    def get_username(self, obj):
+        return obj.user.username

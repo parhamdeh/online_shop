@@ -6,16 +6,9 @@ class SMSService:
     def __init__(self):
         self.provider = get_sms_provider()
 
-    def send_otp(self, *, phone, code):
-        return self.provider.send_verify_code(
-            phone=phone,
-            code=code
-        )
-
-    def send_message(self, *, phone, message):
+    def send_otp(self, *, data: dict):
         return self.provider.send(
-            phone=phone,
-            message=message
+            data=data,
         )
 
     

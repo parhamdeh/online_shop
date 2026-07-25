@@ -19,6 +19,8 @@ LOCAL_APPS = [
     'online_shop.users.apps.UsersConfig',
     "online_shop.products",
     "online_shop.sms_gateway",
+    "online_shop.transactions",
+    "online_shop.payment_gateway",
 ]
 
 THIRD_PARTY_APPS = [
@@ -30,6 +32,7 @@ THIRD_PARTY_APPS = [
     'drf_spectacular',
     'django_extensions',
     "drf_error_handler",
+    "django_elasticsearch_dsl",
 ]
 
 INSTALLED_APPS = [
@@ -245,6 +248,7 @@ DRF_ERROR_HANDLER = {
 
 
 from config.settings.kavenegar import *
+from config.settings.elastic import *
 from config.settings.zarinpal import *
 from config.settings.cors import *  # noqa
 from config.settings.jwt import *  # noqa

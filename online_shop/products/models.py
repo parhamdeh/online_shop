@@ -1,17 +1,32 @@
 # django buit in apps
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 # local apps
 from online_shop.common.models import BaseModel
-from online_shop.users.models import BaseUserModel
+
 
 
 class DiscountModel(BaseModel):
-    code = ...
-    percent = ...
-    start_day = ...
-    end_day = ...
+    code = models.CharField(max_length=50, unique=True, verbose_name=_("کد تخفیف"))
+    percent = models.IntegerField(default=0, verbose_name=_("درصد تخفیف"))
+    start_date = models.DateTimeField(auto_now_add=True, verbose_name=_("روز شروع"))
+    end_date = models.DateTimeField(verbose_name=_("روز پایان"))
+
+    class Meta:
+        ordering = ('-created_at',)
+        verbose_name=_("تخفیف")
+        verbose_name_plural = _("تخفیف")
+
+    def __str__(self):
+        return self.code 
+
+    @property
+    def remaining_days(self):
+        remaining = (self.end_date - timezone.now()).days
+        return max(remaining, 0)
+
 
 class CategoryModel(BaseModel):
     name = models.CharField(max_length=255, unique=True, verbose_name=_("نام دسته بندی"))
@@ -32,7 +47,7 @@ class ProductsModel(BaseModel):
     image = models.ImageField(upload_to="products/images/",
         blank=True,
         null=True, verbose_name=_("عکس"))
-    file = models.FileField(upload_to="products/files/")
+    file = models.FileField(upload_to="products/files/", blank=True, null=True, verbose_name=_("فایل ها"))
     price = models.PositiveIntegerField(default=0, verbose_name=_("قیمت"))
     is_active = models.BooleanField(default=False, verbose_name=_("فعال"))
     sales_count = models.PositiveIntegerField(default=0, verbose_name=_("تعداد فروش"))
@@ -52,8 +67,9 @@ class ProductsModel(BaseModel):
 
 
 class CommentsModel(BaseModel):
+    
     product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE, related_name="product_comment", verbose_name=_("محصول"))
-    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_comment", verbose_name=_("محصول"))
+    user = models.ForeignKey("users.BaseUserModel", on_delete=models.CASCADE, related_name="user_comment", verbose_name=_("محصول"))
     content = models.CharField(max_length=580)
 
     class Meta:
@@ -68,9 +84,10 @@ class CommentsModel(BaseModel):
         return self.user.username
 
 
+
 class LikeModel(BaseModel):
     product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE, related_name="product_liked", verbose_name=_("محصول"))
-    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_like", verbose_name=_("کاربر"))
+    user = models.ForeignKey("users.BaseUserModel", on_delete=models.CASCADE, related_name="user_like", verbose_name=_("کاربر"))
 
     class Meta:
         ordering = ('-created_at',)

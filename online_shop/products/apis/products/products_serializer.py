@@ -8,4 +8,4 @@ from online_shop.products.models import ProductsModel
 class ProductListOutputModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductsModel
-        exclude = ("video", "file", "content", "sales_count")
+        exclude = ("file", "content", "sales_count")

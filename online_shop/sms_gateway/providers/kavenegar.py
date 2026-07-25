@@ -12,23 +12,13 @@ class KavenegarProvider(BaseSMSProvider):
 
     api = KavenegarAPI(base.KAVENEGAR_API_KEY)
 
-    def send(self, *, phone, message: str):
+    def send(self, *, data: dict):
         params = {
                     "sender" : base.KAVENEGAR_SENDER,
-                    "receptor": phone,
-                    "message": message,
+                    "receptor": data["phone"],
+                    "message": data["message"],
                 }
         
-        return self.api.sms_send(params)
-
-    def send_verify_code(self, *, phone, code):
-        
-        params = {
-            "sender" : base.KAVENEGAR_SENDER,
-            "receptor": phone,
-            "message": f"Your verification code is: {code}",
-        }
-
         return self.api.sms_send(params)
 
     

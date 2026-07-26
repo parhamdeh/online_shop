@@ -4,7 +4,7 @@ from django.db.models import QuerySet
 # local apps
 from online_shop.common.types import DjangoModelType
 from online_shop.core.exceptions import ApplicationError
-from online_shop.users.models import BaseUserModel, CartModel, ProfileModel, UserOrder, UserWallet
+from online_shop.users.models import BaseUserModel, ProfileModel, UserWallet
 
 def get_user_list() -> QuerySet[BaseUserModel]:
     return BaseUserModel.objects.all()
@@ -21,13 +21,13 @@ def get_user_wallet(*, user_id: int) -> DjangoModelType[UserWallet]:
     
     return UserWallet.objects.filter(user=user)
 
-def get_user_order(*, user_id: int) -> DjangoModelType[UserOrder]:
-    try:
-        user = get_user_by_id(user_id=user_id).get()
-    except BaseUserModel.DoesNotExist:
-        raise ApplicationError("User Not Found!")
+# def get_user_order(*, user_id: int) -> DjangoModelType[UserOrder]:
+#     try:
+#         user = get_user_by_id(user_id=user_id).get()
+#     except BaseUserModel.DoesNotExist:
+#         raise ApplicationError("User Not Found!")
     
-    return UserOrder.objects.filter(user=user)
+#     return UserOrder.objects.filter(user=user)
 
 def get_user_profile(*, user_id: int) -> DjangoModelType[ProfileModel]:
     try:

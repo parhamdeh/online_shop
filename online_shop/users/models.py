@@ -19,6 +19,11 @@ from online_shop.products.models import ProductsModel
 from online_shop.common.models import BaseModel
 from online_shop.products.models import ProductsModel
 
+class OrderStatus(models.TextChoices):
+    PENDING_PAYMENT = "PENDING_PAYMENT", "در انتظار پرداخت"
+    PAID = "PAID", "پرداخت شده"
+    COMPLETED = "COMPLETED", "تکمیل شده"
+    CANCELED = "CANCELED", "لغو شده"
 
 
 class BaseUserManager(BUM):
@@ -50,14 +55,17 @@ class BaseUserManager(BUM):
 
     create_user.alters_data = True
     def create_superuser(self, username, password=None, **extra_fields):
+        from online_shop.users.services.user_services import create_wallet
+        
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
 
-        return self._create_user(username, password, **extra_fields)
-
+        user = self._create_user(username, password, **extra_fields)
+        create_wallet(user=user)
+        return user
+    
     create_superuser.alters_data = True
-
 
 
 class BaseUserModel(BaseModel, AbstractBaseUser, PermissionsMixin):
@@ -122,22 +130,93 @@ class CartModel(BaseModel):
         ordering = ("-created_at",)
         verbose_name = _(" سبد خرید")
         verbose_name_plural = _("سبد خرید ")
-        
 
-class UserOrder(BaseModel):
+
+class OrderModel(BaseModel):
     """
-    model for handle user orders 
+    Stores a user's order information.
     """
-    user = models.ForeignKey(BaseUserModel, on_delete=models.PROTECT, related_name="user_order", verbose_name=_("کاربر"))
-    product = models.ForeignKey(ProductsModel, on_delete=models.PROTECT, related_name="product", verbose_name=_("محصول"))
+
+    order_number = models.CharField(
+        max_length=30,
+        unique=True,
+        verbose_name=_("شماره سفارش"),
+        help_text=_("Unique order number."),
+    )
+
+    user = models.ForeignKey(
+        BaseUserModel,
+        on_delete=models.PROTECT,
+        related_name="orders",
+        verbose_name=_("کاربر"),
+        help_text=_("Owner of this order."),
+    )
+
+    total_price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("مبلغ کل"),
+        help_text=_("Total price of the order."),
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=OrderStatus.choices,
+        default=OrderStatus.PENDING_PAYMENT,
+        verbose_name=_("وضعیت سفارش"),
+        help_text=_("Current order status."),
+    )
 
     class Meta:
         ordering = ("-created_at",)
-        verbose_name = _(" سفارش")
-        verbose_name_plural = _("سفارش")
-    
+        verbose_name = _("سفارش")
+        verbose_name_plural = _("سفارش‌ها")
+
     def __str__(self):
-        return f"order {self.product.title} for {self.user.username}"
+        return self.order_number
+
+
+class OrderItemModel(BaseModel):
+    """
+    Stores products that belong to an order.
+    """
+
+    order = models.ForeignKey(
+        OrderModel,
+        on_delete=models.CASCADE,
+        related_name="items",
+        verbose_name=_("سفارش"),
+        help_text=_("Related order."),
+    )
+
+    product = models.ForeignKey(
+        ProductsModel,
+        on_delete=models.PROTECT,
+        related_name="order_items",
+        verbose_name=_("محصول"),
+        help_text=_("Purchased product."),
+    )
+
+    quantity = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("تعداد"),
+        help_text=_("Purchased quantity."),
+    )
+
+    price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        verbose_name=_("قیمت"),
+        help_text=_("Product price at purchase time."),
+    )
+
+    class Meta:
+        verbose_name = _("آیتم سفارش")
+        verbose_name_plural = _("آیتم‌های سفارش")
+
+    def __str__(self):
+        return f"{self.product.title} ({self.quantity})"
 
 
 class UserWallet(BaseModel):

@@ -4,7 +4,7 @@
 from django.db.models import QuerySet
 
 # local apps
-from online_shop.users.models import UserOrder
+from online_shop.users.models import OrderModel
 from online_shop.products.models import ProductsModel
 
 
@@ -28,7 +28,7 @@ def get_products_list(*, filters=None) -> QuerySet[ProductsModel]:
     return queryset
 
 def user_bought_product(*, user, product):
-    return UserOrder.objects.filter(user=user, product=product)
+    return OrderModel.objects.filter(user=user, product=product)
 
 
     

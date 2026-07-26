@@ -14,7 +14,7 @@ def get_product_by_id(*, product_id: int) -> ProductsModel:
 def get_products_list(*, filters=None) -> QuerySet[ProductsModel]:
     filters = filters or {}
 
-    queryset = ProductsModel.objects.all()
+    queryset = ProductsModel.objects.filter(is_active=True)
 
     if filters.get("category"):
         queryset = queryset.filter(category_id=filters["category"])

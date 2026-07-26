@@ -2,6 +2,7 @@
 from django.urls import path
 
 # local apps
+from online_shop.products.apis.category.id.category_id_apis import RetrieveCategoryAPIView
 from online_shop.products.apis.search_apis import ProductAutocompleteAPIView, ProductSearchAPIView
 from online_shop.products.apis.products.products_apis import PostListsAPIView
 from online_shop.products.apis.products.id.product_id_apis import ProductRetrieveAPIView
@@ -19,7 +20,7 @@ urlpatterns = [
     path(route="search/autocomplete/", view=ProductAutocompleteAPIView.as_view(), name="product_autocomplete_search"),
     # ------------------------------categories
     path(route="category/", view=CategoryListAPIView.as_view(), name="list_categories"),
-    path(route="category/<int:category_id>/", view=CategoryListAPIView.as_view(), name="category_detail"),
+    path(route="category/<int:category_id>/", view=RetrieveCategoryAPIView.as_view(), name="category_detail"),
     # ------------------------------comments
     path(route="comment/", view=AddCommentAPIView.as_view(), name="add_comments"),
     path(route="comment/<int:comment_id>/", view=DestroyCommentAPIView.as_view(), name="delete_comment"),

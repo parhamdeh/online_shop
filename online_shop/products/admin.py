@@ -27,6 +27,7 @@ class ProductAdmin(ModelAdmin):
         "id",
         "title",
         "price",
+        "file",
         "category",
         "is_active",
         "sales_count",
@@ -70,7 +71,7 @@ class ProductAdmin(ModelAdmin):
             "fields": ( "category", "is_active", "sales_count")
         }),
         (_("محتوا"), {
-            "fields": ("title", "content", "image", "price"),
+            "fields": ("title", "content", "image", "price", "file"),
             "classes": ("tab",),  
         }),
     )

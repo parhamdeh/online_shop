@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 @extend_schema(
-    tags=["Products - Categories"],
+    tags=["Categories"],
     summary="List Categories",
     description="""
 لیست تمام دسته‌بندی‌های محصولات را برمی‌گرداند.

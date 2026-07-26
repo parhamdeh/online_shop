@@ -61,7 +61,7 @@ class RetrieveCategoryAPIView(RetrieveAPIView):
 
     def get_object(self):
         try:
-            category = get_category_by_id(category_id=self.kwargs["category_id"])
+            category = get_category_by_id(category_id=self.kwargs["category_id"]).get()
         except Exception as ex:
             logger.exception(f"database error {ex}")
             raise ApplicationError(message=str(ex))

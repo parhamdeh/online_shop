@@ -16,12 +16,6 @@ class OrderOutputSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CartOutput(serializers.ModelSerializer):
-    class Meta:
-        model = CartModel
-        fields = "__all__"
-
-
 class WalletOutputSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserWallet

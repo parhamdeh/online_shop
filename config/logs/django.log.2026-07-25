@@ -1,0 +1,751 @@
+[2026-07-25 08:37:31,695] INFO elastic_transport.transport _transport:382 - GET http://127.0.0.1:9200/ [status:400 duration:0.024s]
+[2026-07-25 08:41:00,000] INFO elastic_transport.transport _transport:349 - GET http://127.0.0.1:9200/ [status:200 duration:0.005s]
+[2026-07-25 08:44:36,759] INFO elastic_transport.transport _transport:349 - HEAD http://127.0.0.1:9200/ [status:200 duration:0.004s]
+[2026-07-25 08:44:46,384] INFO elastic_transport.transport _transport:349 - HEAD http://127.0.0.1:9200/ [status:200 duration:0.004s]
+[2026-07-25 08:49:02,832] INFO elastic_transport.transport _transport:349 - HEAD http://127.0.0.1:9200/ [status:200 duration:0.014s]
+[2026-07-25 08:50:39,057] INFO elastic_transport.transport _transport:349 - GET http://127.0.0.1:9200/_alias [status:200 duration:0.032s]
+[2026-07-25 09:00:06,004] INFO elastic_transport.transport _transport:349 - GET http://127.0.0.1:9200/_alias [status:200 duration:0.005s]
+[2026-07-25 09:00:06,775] INFO elastic_transport.transport _transport:349 - PUT http://127.0.0.1:9200/products [status:200 duration:0.770s]
+[2026-07-25 09:00:37,297] INFO elastic_transport.transport _transport:349 - GET http://127.0.0.1:9200/_alias [status:200 duration:0.005s]
+[2026-07-25 09:12:15,855] INFO elastic_transport.transport _transport:349 - GET http://127.0.0.1:9200/_alias [status:200 duration:0.027s]
+[2026-07-25 09:34:12,505] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:34:16,107] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 160.08 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.122.1 Chrome/142.0.7444.265 Electron/39.8.8 Safari/537.36
+[2026-07-25 09:34:16,379] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=200 | 48.53 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.122.1 Chrome/142.0.7444.265 Electron/39.8.8 Safari/537.36
+[2026-07-25 09:34:52,170] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\api\urls.py changed, reloading.
+[2026-07-25 09:34:54,766] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:34:58,057] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\api\urls.py changed, reloading.
+[2026-07-25 09:35:00,413] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:35:03,754] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\api\urls.py changed, reloading.
+[2026-07-25 09:35:06,042] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:35:38,982] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 09:35:41,281] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:35:51,079] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 52.93 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:35:51,619] ERROR django.request log:249 - Internal Server Error: /schema/
+Traceback (most recent call last):
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Bob\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 85, in inner
+    return func(*args, **kwds)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 287, in get_schema
+    paths=self.parse(request, public),
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 258, in parse
+    operation = view.schema.get_operation(
+        path, path_regex, path_prefix, method, self.registry
+    )
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 105, in get_operation
+    auth = self.get_auth()
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 365, in get_auth
+    perms = [p.__class__ for p in self.view.get_permissions()]
+                                  ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 284, in get_permissions
+    return [permission() for permission in self.permission_classes]
+                                           ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'BasePermissionMetaclass' object is not iterable
+[2026-07-25 09:35:51,625] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=500 | 381.31 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:35:51,728] ERROR django.request log:249 - Internal Server Error: /schema/
+Traceback (most recent call last):
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Bob\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 85, in inner
+    return func(*args, **kwds)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 287, in get_schema
+    paths=self.parse(request, public),
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 258, in parse
+    operation = view.schema.get_operation(
+        path, path_regex, path_prefix, method, self.registry
+    )
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 105, in get_operation
+    auth = self.get_auth()
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 365, in get_auth
+    perms = [p.__class__ for p in self.view.get_permissions()]
+                                  ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 284, in get_permissions
+    return [permission() for permission in self.permission_classes]
+                                           ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'BasePermissionMetaclass' object is not iterable
+[2026-07-25 09:35:51,731] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=500 | 66.04 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:37:07,709] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\products_apis.py changed, reloading.
+[2026-07-25 09:37:09,795] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:37:12,953] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 19.30 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:37:13,166] ERROR django.request log:249 - Internal Server Error: /schema/
+Traceback (most recent call last):
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Bob\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 85, in inner
+    return func(*args, **kwds)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 287, in get_schema
+    paths=self.parse(request, public),
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 258, in parse
+    operation = view.schema.get_operation(
+        path, path_regex, path_prefix, method, self.registry
+    )
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 113, in get_operation
+    operation['responses'] = self._get_response_bodies()
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 1407, in _get_response_bodies
+    return {'200': self._get_response_for_code(response_serializers, '200', direction=direction)}
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 1463, in _get_response_for_code
+    component = self.resolve_serializer(serializer, direction)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 1658, in resolve_serializer
+    component.schema = self._map_serializer(serializer, direction, bypass_extensions)
+                       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 959, in _map_serializer
+    schema = self._map_basic_serializer(serializer, direction)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 1052, in _map_basic_serializer
+    for field in serializer.fields.values():
+                 ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\serializers.py", line 386, in fields
+    for key, value in self.get_fields().items():
+                      ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\serializers.py", line 1101, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\serializers.py", line 1231, in get_field_names
+    assert field_name in fields, (
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: The field 'video' was included on serializer ProductListOutputModelSerializer in the 'exclude' option, but does not match any model field.
+[2026-07-25 09:37:13,176] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=500 | 130.13 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:37:13,286] ERROR django.request log:249 - Internal Server Error: /schema/
+Traceback (most recent call last):
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Bob\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 85, in inner
+    return func(*args, **kwds)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 287, in get_schema
+    paths=self.parse(request, public),
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 258, in parse
+    operation = view.schema.get_operation(
+        path, path_regex, path_prefix, method, self.registry
+    )
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 113, in get_operation
+    operation['responses'] = self._get_response_bodies()
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 1407, in _get_response_bodies
+    return {'200': self._get_response_for_code(response_serializers, '200', direction=direction)}
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 1463, in _get_response_for_code
+    component = self.resolve_serializer(serializer, direction)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 1658, in resolve_serializer
+    component.schema = self._map_serializer(serializer, direction, bypass_extensions)
+                       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 959, in _map_serializer
+    schema = self._map_basic_serializer(serializer, direction)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 1052, in _map_basic_serializer
+    for field in serializer.fields.values():
+                 ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\serializers.py", line 386, in fields
+    for key, value in self.get_fields().items():
+                      ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\serializers.py", line 1101, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\serializers.py", line 1231, in get_field_names
+    assert field_name in fields, (
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: The field 'video' was included on serializer ProductListOutputModelSerializer in the 'exclude' option, but does not match any model field.
+[2026-07-25 09:37:13,290] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=500 | 74.21 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:37:44,757] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\products_serializer.py changed, reloading.
+[2026-07-25 09:37:46,978] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:37:56,833] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 18.02 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:37:57,035] ERROR django.request log:249 - Internal Server Error: /schema/
+Traceback (most recent call last):
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Bob\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 85, in inner
+    return func(*args, **kwds)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 287, in get_schema
+    paths=self.parse(request, public),
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 258, in parse
+    operation = view.schema.get_operation(
+        path, path_regex, path_prefix, method, self.registry
+    )
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\utils.py", line 451, in get_operation
+    return super().get_operation(path, path_regex, path_prefix, method, registry)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 93, in get_operation
+    parameters = self._get_parameters()
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 258, in _get_parameters
+    override_parameters = self._process_override_parameters()
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 217, in _process_override_parameters
+    examples=build_examples_list(parameter.examples),
+             ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\plumbing.py", line 348, in build_examples_list
+    normalized_name = inflection.camelize(example.name.replace(' ', '_'))
+                                          ^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'name'
+[2026-07-25 09:37:57,043] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=500 | 128.11 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:37:57,151] ERROR django.request log:249 - Internal Server Error: /schema/
+Traceback (most recent call last):
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Bob\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 85, in inner
+    return func(*args, **kwds)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 287, in get_schema
+    paths=self.parse(request, public),
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\generators.py", line 258, in parse
+    operation = view.schema.get_operation(
+        path, path_regex, path_prefix, method, self.registry
+    )
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\utils.py", line 451, in get_operation
+    return super().get_operation(path, path_regex, path_prefix, method, registry)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 93, in get_operation
+    parameters = self._get_parameters()
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 258, in _get_parameters
+    override_parameters = self._process_override_parameters()
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\openapi.py", line 217, in _process_override_parameters
+    examples=build_examples_list(parameter.examples),
+             ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bob\Desktop\onlin_shop\venv\Lib\site-packages\drf_spectacular\plumbing.py", line 348, in build_examples_list
+    normalized_name = inflection.camelize(example.name.replace(' ', '_'))
+                                          ^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'name'
+[2026-07-25 09:37:57,154] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=500 | 70.59 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:39:23,324] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 09:39:25,585] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:39:32,916] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 09:39:35,252] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:39:47,105] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 09:39:49,400] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:39:51,969] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 22.21 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:39:52,344] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.252s]
+[2026-07-25 09:39:52,352] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.007s]
+[2026-07-25 09:39:52,358] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=200 | 303.87 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 09:40:13,726] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 09:40:15,816] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:40:22,530] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 09:40:24,707] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:40:26,955] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 09:40:29,080] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:41:45,786] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\products_apis.py changed, reloading.
+[2026-07-25 09:41:47,990] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:41:51,127] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\products_apis.py changed, reloading.
+[2026-07-25 09:41:53,342] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:41:58,467] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\products_apis.py changed, reloading.
+[2026-07-25 09:42:00,397] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:42:10,018] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\products_apis.py changed, reloading.
+[2026-07-25 09:42:12,189] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:42:14,278] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\products_apis.py changed, reloading.
+[2026-07-25 09:42:16,335] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:42:19,519] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\products_apis.py changed, reloading.
+[2026-07-25 09:42:21,592] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:42:39,394] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\products_apis.py changed, reloading.
+[2026-07-25 09:42:41,438] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:49:53,444] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:49:55,822] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:49:57,688] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:49:59,989] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:50:06,354] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:50:08,861] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:50:16,163] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:50:18,658] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:50:20,478] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:50:22,662] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:50:25,895] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:50:27,935] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:50:33,365] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:50:35,587] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:54:18,816] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:54:20,950] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:54:26,300] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:54:28,358] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:54:32,402] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:54:34,647] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:54:36,535] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:54:38,599] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:54:44,952] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:54:47,551] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:54:49,434] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:54:51,495] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:54:53,381] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:54:55,555] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:55:00,805] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:55:05,211] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:55:07,270] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:55:09,183] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:55:26,557] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:55:28,957] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:55:31,080] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:55:33,256] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:55:41,643] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:55:44,083] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:55:47,463] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:55:50,326] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:55:52,392] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:55:54,802] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 09:55:58,141] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 09:56:00,051] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:02:05,432] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:02:07,938] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:02:12,346] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:02:14,370] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:02:17,466] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:02:19,553] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:02:24,698] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:02:26,614] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:02:29,525] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:02:31,676] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:02:35,790] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:02:37,829] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:02:40,909] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:02:42,754] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:02:52,169] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:02:54,266] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:03:00,370] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:03:02,328] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:03:06,425] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:03:08,359] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:03:10,382] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:03:12,402] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:03:14,366] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:03:16,298] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:03:19,305] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:03:21,196] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:03:35,209] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:03:37,180] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:03:41,248] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:03:43,553] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:03:46,862] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:03:48,985] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:03:57,368] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:03:59,622] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:04:02,687] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:04:04,878] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:04:58,669] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 10:05:01,222] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:06:23,749] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 10:06:25,818] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:06:33,576] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 10:06:35,427] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:06:45,001] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\search_apis.py changed, reloading.
+[2026-07-25 10:06:47,152] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:07:03,379] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\id\product_id_apis.py changed, reloading.
+[2026-07-25 10:07:05,383] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:07:18,503] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\products\id\product_id_apis.py changed, reloading.
+[2026-07-25 10:07:20,607] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:07:43,620] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 19.79 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 10:07:43,772] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.011s]
+[2026-07-25 10:07:43,780] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.007s]
+[2026-07-25 10:07:43,793] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=200 | 72.36 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 10:50:53,586] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:51:00,631] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 24.79 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 10:51:00,819] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.046s]
+[2026-07-25 10:51:00,825] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.005s]
+[2026-07-25 10:51:00,830] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=200 | 98.58 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 10:51:22,359] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:51:24,343] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:51:27,272] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:51:29,375] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:51:32,614] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:51:35,426] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:51:41,836] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:51:43,785] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:51:45,878] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:51:48,565] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:51:50,634] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:51:52,847] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:51:54,927] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:51:56,958] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:51:59,180] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:01,378] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:04,522] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:07,162] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:09,688] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:12,145] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:15,366] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:17,516] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:19,632] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:21,938] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:25,195] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:27,595] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:30,639] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:32,861] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:35,770] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:38,478] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:41,491] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:43,758] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:48,018] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:50,201] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:52:52,173] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:52:54,152] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:53:01,457] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:53:03,824] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:53:07,983] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:53:10,538] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:53:15,657] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:53:17,487] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:53:22,589] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:53:24,809] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:53:32,377] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:53:34,354] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:53:39,419] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:53:41,608] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:53:44,652] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:53:46,838] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:53:50,083] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:53:52,098] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:53:57,454] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:53:59,620] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:54:06,177] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:54:08,308] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:54:10,397] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:54:12,626] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:54:20,289] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:54:22,538] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:54:35,667] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:54:37,952] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:54:41,223] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 10:54:43,565] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:55:12,226] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\product_selectors.py changed, reloading.
+[2026-07-25 10:55:14,871] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:55:24,752] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:55:27,150] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:55:29,074] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:55:30,936] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:55:35,178] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:55:37,355] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:55:43,653] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:55:46,168] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:55:49,189] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:55:51,102] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:07,317] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:09,277] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:13,397] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:15,449] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:17,448] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:19,578] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:21,672] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:23,596] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:25,735] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:27,657] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:29,664] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:31,798] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:33,665] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:35,791] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:38,776] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:40,730] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:43,844] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:46,136] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:56:48,225] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:56:50,175] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:57:01,842] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:57:04,328] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 10:57:06,505] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\selectors\category_selectors.py changed, reloading.
+[2026-07-25 10:57:08,502] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:21:53,581] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 45.77 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 11:21:53,747] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.013s]
+[2026-07-25 11:21:53,755] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.006s]
+[2026-07-25 11:21:53,769] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=200 | 82.38 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 11:36:29,629] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:36:36,514] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:36:41,848] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:36:44,003] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:36:45,897] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:36:48,074] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:36:52,171] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:36:54,111] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:36:58,170] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:00,051] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:02,996] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:04,911] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:13,293] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:15,605] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:17,675] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:20,124] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:22,070] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:24,787] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:27,033] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:29,123] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:31,314] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:33,564] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:36,852] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:39,275] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:46,894] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:49,135] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:51,199] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:53,019] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:37:57,127] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:37:59,411] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:38:01,334] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:38:03,374] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:38:06,636] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:38:08,823] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:38:11,004] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:38:13,381] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:38:17,899] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:38:19,871] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:38:28,911] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:38:30,888] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:38:32,904] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:38:35,028] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:38:36,991] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:38:39,115] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:38:45,667] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:38:48,147] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 11:38:56,739] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\permissions.py changed, reloading.
+[2026-07-25 11:38:58,970] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:00:40,415] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\comments\comment_serializer.py changed, reloading.
+[2026-07-25 12:00:42,802] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:00:45,870] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\comments\comment_serializer.py changed, reloading.
+[2026-07-25 12:00:48,283] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:00:56,946] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\comments\comment_serializer.py changed, reloading.
+[2026-07-25 12:00:59,091] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:01:18,541] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\comments\comment_serializer.py changed, reloading.
+[2026-07-25 12:01:20,639] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:06:17,337] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 18.33 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 12:06:17,543] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.044s]
+[2026-07-25 12:06:17,551] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.006s]
+[2026-07-25 12:06:17,557] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=200 | 107.57 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 12:06:32,549] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:06:34,841] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:06:38,323] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:06:41,145] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:06:43,227] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:06:45,300] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:06:49,593] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:06:51,739] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:06:58,246] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:07:00,312] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:07:02,385] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:07:05,371] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:07:10,715] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:07:13,015] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:07:16,143] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:07:18,099] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:07:22,078] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:07:24,033] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:07:40,202] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:07:42,373] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:07:44,206] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:07:46,350] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:08:03,390] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:08:05,719] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:08:11,157] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:08:13,186] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:08:18,452] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:08:20,639] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:08:25,064] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:08:27,148] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:08:35,912] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:08:38,040] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:08:44,598] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:08:46,596] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:08:49,094] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:08:51,193] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:08:54,348] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:08:56,479] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:09:01,837] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:09:04,193] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:09:06,311] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:09:08,177] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:09:11,521] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:09:13,464] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:09:19,871] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:09:21,844] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:09:29,621] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:09:31,853] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:09:33,943] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:09:36,225] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:09:39,499] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:09:42,136] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:09:44,277] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:09:46,316] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:09:56,016] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:09:58,146] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:10:08,989] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:10:11,329] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:10:13,705] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:10:15,775] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:10:21,094] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:10:23,119] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:10:26,461] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:10:28,510] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:10:49,289] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 18.69 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 12:10:49,434] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.009s]
+[2026-07-25 12:10:49,440] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.005s]
+[2026-07-25 12:10:49,452] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=200 | 67.25 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 12:21:19,802] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\services\comment_services.py changed, reloading.
+[2026-07-25 12:21:21,847] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:21:23,785] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\services\comment_services.py changed, reloading.
+[2026-07-25 12:21:25,784] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:21:27,737] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\services\comment_services.py changed, reloading.
+[2026-07-25 12:21:29,863] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:21:52,895] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\comments\comment_apis.py changed, reloading.
+[2026-07-25 12:21:54,972] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:21:56,981] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\comments\comment_apis.py changed, reloading.
+[2026-07-25 12:21:58,957] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:22:05,717] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\comments\comment_apis.py changed, reloading.
+[2026-07-25 12:22:07,678] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:22:10,121] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\comments\comment_apis.py changed, reloading.
+[2026-07-25 12:22:12,087] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:32:15,810] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:32:18,225] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:32:21,401] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:32:24,201] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:32:28,616] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:32:30,745] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:32:33,701] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:32:35,765] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:32:37,758] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:32:39,660] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:32:45,931] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:32:47,966] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:32:55,234] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:32:57,244] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:33:25,344] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:33:27,757] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:33:33,995] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:33:35,843] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:33:38,811] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:33:40,996] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:33:46,329] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\urls.py changed, reloading.
+[2026-07-25 12:33:48,522] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:35:27,892] INFO django.utils.autoreload autoreload:265 - C:\Users\Bob\Desktop\onlin_shop\online_shop\online_shop\products\apis\likes\like_apis.py changed, reloading.
+[2026-07-25 12:35:30,538] INFO django.utils.autoreload autoreload:681 - Watching for file changes with StatReloader
+[2026-07-25 12:35:31,392] INFO online_shop.api.middleware middleware:32 - [GET] / | User=Anonymous | IP=127.0.0.1 | Status=200 | 66.39 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0
+[2026-07-25 12:35:31,596] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.009s]
+[2026-07-25 12:35:31,605] INFO elastic_transport.transport _transport:349 - POST http://127.0.0.1:9200/products/_search [status:200 duration:0.008s]
+[2026-07-25 12:35:31,611] INFO online_shop.api.middleware middleware:32 - [GET] /schema/ | User=Anonymous | IP=127.0.0.1 | Status=200 | 73.19 ms | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0

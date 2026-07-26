@@ -73,10 +73,24 @@ class ProductSearchAPIView(ListAPIView):
             search = search.query(
                 "multi_match",
                 query=query,
-                fields=[
-                    "title",
-                    "price",
-                    "content",
+                fields=["title", "content"],
+            )
+
+        if query.isdigit():
+            search = search.query(
+                "bool",
+                should=[
+                    {
+                        "multi_match": {
+                            "query": query,
+                            "fields": ["title", "content"],
+                        }
+                    },
+                    {
+                        "term": {
+                            "price": int(query),
+                        }
+                    },
                 ],
             )
 
@@ -125,7 +139,7 @@ class ProductAutocompleteAPIView(APIView):
 
         suggestions = []
 
-        for option in result.products_suggest[0].options:
+        for option in result.suggest.products_suggest[0].options:
             suggestions.append(
                 {
                     "id": option._source.id,

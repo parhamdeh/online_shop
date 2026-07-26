@@ -11,16 +11,17 @@ class CategoryDetailModelSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = CategoryModel
-        fields = (
-            "name",
-            "id",
-            "products",
-        )
+        fields = "__all__"
+        # (
+        #     "name",
+        #     "id",
+        #     "products",
+        # )
 
     def get_products(self, obj):
         products = (
-            obj.products
-                .select_related("product_category")
+            obj.product_category
+                .select_related("category")
                 .order_by("-created_at")[:5]
         )
         return ProductListOutputModelSerializer(products, many=True).data

@@ -117,21 +117,19 @@ class CartModel(BaseModel):
     shoping cart for handle user's targets
     """
     user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_cart", verbose_name=_("کاربر"))
-    total = models.PositiveIntegerField(default=0)
-    products = models.ManyToManyField(ProductsModel, null=True, blank=True, related_name="products_in_cart", verbose_name=_("محصول"))
 
     class Meta:
         ordering = ("-created_at",)
         verbose_name = _(" سبد خرید")
         verbose_name_plural = _("سبد خرید ")
-
+        
 
 class UserOrder(BaseModel):
     """
     model for handle user orders 
     """
-    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_order", verbose_name=_("کاربر"))
-    product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE, related_name="product", verbose_name=_("محصول"))
+    user = models.ForeignKey(BaseUserModel, on_delete=models.PROTECT, related_name="user_order", verbose_name=_("کاربر"))
+    product = models.ForeignKey(ProductsModel, on_delete=models.PROTECT, related_name="product", verbose_name=_("محصول"))
 
     class Meta:
         ordering = ("-created_at",)
@@ -162,3 +160,26 @@ class OtpModel(BaseModel):
 
     phone = PhoneNumberField(region="IR")
     code = models.CharField()
+
+
+class CartItemModel(BaseModel):
+    cart = models.ForeignKey(
+        CartModel,
+        related_name="items",
+        on_delete=models.CASCADE,
+        verbose_name=_("سبد خرید")
+    )
+
+    product = models.ForeignKey(
+        ProductsModel,
+        on_delete=models.CASCADE,
+        verbose_name=_("محصول")
+    )
+
+    quantity = models.PositiveIntegerField(default=1,
+                                           verbose_name=_("تعداد محصولات"))
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = _(" سبد ")
+        verbose_name_plural = _("سبد ")

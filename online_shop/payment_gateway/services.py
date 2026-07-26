@@ -8,7 +8,7 @@ from online_shop.payment_gateway.models import PaymentModel
 
 def create_payment(*, user, data):
     
-
+    ...
     
     payment = PaymentModel.objects.create(
         user=user,

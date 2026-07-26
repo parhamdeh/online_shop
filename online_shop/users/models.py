@@ -15,7 +15,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # local apps
-from online_shop.products.models import ProductsModel
+from online_shop.products.models import DiscountModel, ProductsModel
 from online_shop.common.models import BaseModel
 from online_shop.products.models import ProductsModel
 
@@ -137,13 +137,6 @@ class OrderModel(BaseModel):
     Stores a user's order information.
     """
 
-    order_number = models.CharField(
-        max_length=30,
-        unique=True,
-        verbose_name=_("شماره سفارش"),
-        help_text=_("Unique order number."),
-    )
-
     user = models.ForeignKey(
         BaseUserModel,
         on_delete=models.PROTECT,
@@ -159,6 +152,8 @@ class OrderModel(BaseModel):
         verbose_name=_("مبلغ کل"),
         help_text=_("Total price of the order."),
     )
+
+    discount = models.OneToOneField(DiscountModel, on_delete=models.PROTECT, null=True, blank=True)
 
     status = models.CharField(
         max_length=20,

@@ -4,6 +4,8 @@ from django.db import transaction
 from django.utils import timezone
 from django.db.models import F
 # local apps
+from online_shop.transactions.services import transactions
+from online_shop.transactions.models import TransactionType, TransactionStatus
 from online_shop.users.selectors.order_selectors import get_order_by_id
 from online_shop.users.selectors.user_selectors import get_admin_wallet
 from online_shop.payment_gateway.enums import PaymentType, PaymentStatus
@@ -50,7 +52,18 @@ def wallet_charge(*, payment: PaymentModel):
     wallet.balance = F("balance") + payment.amount
 
     wallet.save(update_fields=["balance"])
-    # add transaction
+
+    fields = {
+            "user" : payment.user,
+            "transaction_type" : TransactionType.WALLET_CHARGE,
+            "gateway" : payment.gateway,
+            "ref_id" : payment.ref_id,
+            "status" : TransactionStatus.VERIFIED,
+            "authority" : payment.authority,
+            "commission_amount" : 0,
+        }
+    
+    transactions(fields=fields) 
 
 def order_payment(*, payment: PaymentModel):
     order = payment.order
@@ -62,8 +75,17 @@ def order_payment(*, payment: PaymentModel):
     admin_wallet.balance = F("balance") + payment.amount
     admin_wallet.save(update_fields=["balance"])
 
-    # add transaction 
-    # add to admin wallet
+    fields = {
+        "user" : payment.user,
+        "transaction_type" : TransactionType.ORDER,
+        "gateway" : payment.gateway,
+        "ref_id" : payment.ref_id,
+        "status" : TransactionStatus.VERIFIED,
+        "authority" : payment.authority,
+        "commission_amount" : 0,
+    }
+
+    transactions(fields=fields) 
     
 def check_payment_type(*, payment: PaymentModel):
     payment_type = payment.payment_type

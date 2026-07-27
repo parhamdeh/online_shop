@@ -9,8 +9,9 @@ from django.urls import path, include
 from online_shop.users.apis.orders.order_apis import OrderRetrieveDestroyAPIView, OrdersListCreateAPIView
 from online_shop.users.apis.cart.cart_apis import AddProductToCartAPIView, CartRetrieveUpdateAPIView, DeleteItemAPIView
 from online_shop.users.apis.user_apis import UserRegisterAPIView
-from online_shop.users.apis.id.user_id_apis import RetrieveProfileAPIView, RetrieveWalletAPIView, UserChangeDetailsAPIView
+from online_shop.users.apis.id.user_id_apis import RetrieveProfileAPIView, UserChangeDetailsAPIView
 from online_shop.users.apis.login_apis import CustomTokenObtainPairView, CustomRefreshTokenAPIView
+from online_shop.users.apis.wallet.wallet_apis import RetrieveWalletAPIView, UseWalletForBuyProductAPIView
 from online_shop.users.apis.user_verify_apis import VerifyOtpAPIView
 
 
@@ -27,7 +28,6 @@ urlpatterns = [
     # ---------------------------------- User Detail
     path(route="profile/<int:user_id>/", view=RetrieveProfileAPIView.as_view(), name="profile"),
     path(route="change_password/<int:user_id>/", view=UserChangeDetailsAPIView.as_view(), name="change_password"),
-    path(route="wallet/<int:user_id>/", view=RetrieveWalletAPIView.as_view(), name="wallet"),
     # path(route="order/<int:user_id>/", view=RetrieveOrdersAPIView.as_view(), name="order"),
     # -----------------------------------user cart
     path(route="add-item/", view=AddProductToCartAPIView.as_view(), name="add_to_cart"),
@@ -36,5 +36,7 @@ urlpatterns = [
     # -------------------------------------orders
     path(route="crate_list_order/", view=OrdersListCreateAPIView.as_view(), name="list_crate_order"),
     path(route="order_detail/<int:order>/", view=OrderRetrieveDestroyAPIView.as_view(), name="order_detail"),
-
+    # -------------------------------------wallet
+    path(route="wallet/", view=RetrieveWalletAPIView.as_view(), name="wallet"),
+    path(route="wallet/<int:order_id>/", view=UseWalletForBuyProductAPIView.as_view(), name="buy_with_wallet"),
 ]

@@ -129,31 +129,6 @@ class UserChangeDetailsAPIView(UpdateAPIView):
         )
 
     
-@extend_schema(
-    tags=["Users"],
-    summary="Get user wallet",
-    description="Retrieve wallet information of a specific user.",
-    responses={
-        200: WalletOutputSerializer,
-        403: OpenApiResponse(description="Permission denied"),
-        404: OpenApiResponse(description="Wallet not found"),
-    },
-)
-class RetrieveWalletAPIView(RetrieveAPIView):
-    permission_classes = [IsALLowToSeeProfile]
-    throttle_classes = [UserRequestThrottle]
-    serializer_class = WalletOutputSerializer
-    renderer_classes = [CustomResponseRenderer]
-
-    def get_object(self):
-        try:
-            wallet = get_user_wallet(user_id=self.kwargs["user_id"]).get()
-        except Exception as ex:
-            logger.exception(f"database error {ex}")
-            raise ApplicationError(f"database error {ex}")
-        
-        self.check_object_permissions(self.request, wallet)
-        return wallet
 
 
 # @extend_schema(

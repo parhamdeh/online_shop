@@ -4,6 +4,7 @@ from online_shop.core.exceptions import ApplicationError
 from online_shop.users.selectors.user_selectors import get_user_by_id
 from online_shop.users.models import BaseUserModel, ProfileModel, CartModel, UserWallet
 from online_shop.users.services.code_services import create_otp_code_for_user
+from online_shop.users.selectors.user_selectors import get_inactive_users
 
 # django built in apps
 from django.db import transaction
@@ -76,3 +77,11 @@ def full_update(*, data: dict, user_id: int) -> DjangoModelType[BaseUserModel]:
 def partial_update(*, data: dict, user_id: int) -> DjangoModelType[BaseUserModel]:
     user = get_user_or_404(user_id=user_id)
     return update_user(user=user, updated_data=data)
+
+def delete_inactive_users():
+
+    users = get_inactive_users()
+
+    deleted_count, _ = users.delete()
+
+    return deleted_count

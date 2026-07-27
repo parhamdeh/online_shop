@@ -17,14 +17,25 @@ def create_transaction(*, fields: dict) -> Transactioans:
     )
     return transaction
 
-def create_transaction_entry_principal(*, fields: dict) -> TransactionEntry:
-    ...
+def create_transaction_entry_principal(*, transaction: Transactioans) -> TransactionEntry:
+    return TransactionEntry.objects.create(
+        transaction=transaction,
+        entry_type=EntryType.PRINCIPAL,
+        amount=transaction.order.total_price,
+        description="this is for principal",
+    )
 
-def create_transaction_entry_commission(*, fields: dict) -> TransactionEntry:
-    ...
+def create_transaction_entry_commission(*, transaction: Transactioans) -> TransactionEntry:
+    return TransactionEntry.objects.create(
+            transaction=transaction,
+            entry_type=EntryType.COMMISSION,
+            amount=transaction.order.total_price,
+            description="this is for commission",
+        )
 
 @transaction.atomic
 def transactions(*, fields: dict) -> Transactioans:
     transaction = create_transaction(fields=fields)
-    create_transaction_entry_commission(fields=fields)
-    create_transaction_entry_principal(fields=fields)
+    create_transaction_entry_commission(transaction=transaction)
+    create_transaction_entry_principal(transaction=transaction)
+    

@@ -4,6 +4,7 @@ from django.db import transaction
 from django.utils import timezone
 from django.db.models import F
 # local apps
+from online_shop.users.websocket import send_wallet_balance
 from online_shop.transactions.services import transactions
 from online_shop.transactions.models import TransactionType, TransactionStatus
 from online_shop.users.selectors.order_selectors import get_order_by_id
@@ -12,7 +13,7 @@ from online_shop.payment_gateway.enums import PaymentType, PaymentStatus
 from online_shop.payment_gateway.factory import GatewayFactory
 from online_shop.payment_gateway.models import PaymentModel
 from online_shop.core.exceptions import ApplicationError
-from online_shop.users.models import OrderStatus
+from online_shop.users.models import BaseUserModel, OrderStatus
 
 
 
@@ -52,8 +53,14 @@ def wallet_charge(*, payment: PaymentModel):
     wallet.balance = F("balance") + payment.amount
 
     wallet.save(update_fields=["balance"])
+    wallet.refresh_from_db()
+    send_wallet_balance(
+        user_id=payment.user.id,
+        balance=wallet.balance,
+    )
 
     fields = {
+            "order": None,
             "user" : payment.user,
             "transaction_type" : TransactionType.WALLET_CHARGE,
             "gateway" : payment.gateway,
@@ -76,6 +83,7 @@ def order_payment(*, payment: PaymentModel):
     admin_wallet.save(update_fields=["balance"])
 
     fields = {
+        "order": order,
         "user" : payment.user,
         "transaction_type" : TransactionType.ORDER,
         "gateway" : payment.gateway,
@@ -134,3 +142,39 @@ def verify_payment(*, authority: str, status: str, user):
 
 def refund_payment():
     ...
+
+@transaction.atomic
+def use_wallet_for_buy_product(*, order_id: int, user: BaseUserModel):
+    admin_wallet = get_admin_wallet()
+    order = get_order_by_id(order_id=order_id).get()
+    price = order.total_price
+
+    wallet = user.user_wallet
+    if wallet.balance < price:
+        raise ApplicationError("Insufficient wallet balance.")
+    
+    wallet.balance = F("balance") - price
+    wallet.save(update_fields=["balance"])
+
+    order.status = OrderStatus.PAID
+    order.save(update_fields=["status"])
+
+    admin_wallet.balance = F("balance") + price
+    admin_wallet.save(update_fields=["balance"])
+    wallet.refresh_from_db()
+    
+    send_wallet_balance(
+        user_id=user.id,
+        balance=wallet.balance,
+    )
+
+    fields = {
+            "order": order,
+            "user" : user,
+            "transaction_type" : TransactionType.ORDER,
+            "status" : TransactionStatus.VERIFIED,
+            "commission_amount" : 0,
+        }
+    
+    transactions(fields=fields)
+    return wallet

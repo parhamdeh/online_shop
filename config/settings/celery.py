@@ -1,4 +1,5 @@
 from config.env import env
+from celery.schedules import crontab
 
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html
 
@@ -16,9 +17,8 @@ CELERY_TASK_TIME_LIMIT = 30  # seconds
 CELERY_TASK_MAX_RETRIES = 3
 
 CELERY_BEAT_SCHEDULE = {
-    'notify_customers': {
-        'task': 'config.tasks.notify_customers',
-        'schedule': 500,
-        'args': ['Hello World'],
-    }
+    "delete-inactive-users": {
+        "task": "users.delete_inactive_users",
+        "schedule": crontab(hour=0, minute=0),
+    },
 }

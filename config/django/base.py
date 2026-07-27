@@ -33,6 +33,7 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     "drf_error_handler",
     "django_elasticsearch_dsl",
+    "channels",
 ]
 
 INSTALLED_APPS = [
@@ -126,7 +127,7 @@ AUTH_USER_MODEL = 'users.BaseUserModel'
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa'
 
 TIME_ZONE = 'UTC'
 
@@ -240,6 +241,17 @@ DRF_ERROR_HANDLER = {
     "EXCEPTION_FORMATTER_CLASS": "online_shop.utils.formatters.StatusExceptionFormatter",
 }
 
+ASGI_APPLICATION = "online_shop.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [
+                ("127.0.0.1", 6379),
+            ],
+        },
+    },
+}
 
 
 from config.settings.kavenegar import *

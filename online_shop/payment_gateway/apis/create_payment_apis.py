@@ -1,16 +1,53 @@
 from rest_framework.serializers import BaseSerializer
 from rest_framework.generics import CreateAPIView
+from drf_spectacular.utils import (
+    extend_schema,
+    OpenApiParameter,
+    OpenApiExample,
+    OpenApiResponse,
+)
 
 # local apps
 from online_shop.payment_gateway.apis.serializers import PaymentCreateSerializer
-from online_shop.payment_gateway.services import create_payment
+from online_shop.payment_gateway.services import call_zarinpal
 
 
+@extend_schema(
+    tags=["Payment"],
+    summary="Create a new payment request",
+    description=(
+        "Initiates a payment through the Zarinpal gateway. Supports two payment types: "
+        "paying for an existing order (`order`) or charging the user's wallet (`wallet_charge`). "
+        "Returns the payment gateway redirect URL for the client to follow."
+    ),
+    request=PaymentCreateSerializer,
+    responses={
+        201: OpenApiResponse(
+            response=PaymentCreateSerializer,
+            description="Payment initiated successfully; redirect URL included.",
+        ),
+        400: OpenApiResponse(description="Invalid request data."),
+        401: OpenApiResponse(description="Authentication credentials were not provided."),
+        500: OpenApiResponse(description="Payment gateway error."),
+    },
+    examples=[
+        OpenApiExample(
+            name="Pay for an order",
+            request_only=True,
+            value={"payment_type": "order", "order_id": 42},
+        ),
+        OpenApiExample(
+            name="Charge wallet",
+            request_only=True,
+            value={"payment_type": "wallet_charge", "amount": 500000},
+        ),
+    ],
+)
 class CreatePaymentAPIView(CreateAPIView):
     serializer_class = PaymentCreateSerializer
 
     def perform_create(self, serializer):
-        serializer.instance = create_payment(
+        serializer.instance = call_zarinpal(
             user=self.request.user,
             data=serializer.validated_data,
         )

@@ -21,13 +21,10 @@ def get_user_wallet(*, user_id: int) -> DjangoModelType[UserWallet]:
     
     return UserWallet.objects.filter(user=user)
 
-# def get_user_order(*, user_id: int) -> DjangoModelType[UserOrder]:
-#     try:
-#         user = get_user_by_id(user_id=user_id).get()
-#     except BaseUserModel.DoesNotExist:
-#         raise ApplicationError("User Not Found!")
-    
-#     return UserOrder.objects.filter(user=user)
+def get_admin_wallet():
+    return UserWallet.objects.select_for_update().get(
+        user__is_superuser=True,
+    )
 
 def get_user_profile(*, user_id: int) -> DjangoModelType[ProfileModel]:
     try:

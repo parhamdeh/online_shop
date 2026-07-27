@@ -12,7 +12,7 @@ from drf_spectacular.utils import (
 )
 
 # local apps
-from online_shop.online_shop.users.services.order_services import create_order
+from online_shop.users.services.order_services import create_order, delete_order
 from online_shop.users.permissions import IsALLowToSeeProfile
 from online_shop.api.throttle import UserRequestThrottle
 from online_shop.api.renderer import CustomResponseRenderer
@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
         201: OrdersOutputSerializer,
     },
 )
-class OrdersListAPIView(ListCreateAPIView):
+class OrdersListCreateAPIView(ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     throttle_classes = (UserRequestThrottle,)
     renderer_classes = (CustomResponseRenderer,)
@@ -60,14 +60,14 @@ class OrdersListAPIView(ListCreateAPIView):
 
 @extend_schema(
     tags=["Orders"],
-    summary="Retrieve Order",
+    summary="Retrieve and destroy an Order",
     description="Retrieve a specific order belonging to the authenticated user.",
     responses={
         200: OrdersOutputSerializer,
         404: OpenApiResponse(description="Order not found"),
     },
 )
-class OrderRetrieveDestroy(RetrieveDestroyAPIView):
+class OrderRetrieveDestroyAPIView(RetrieveDestroyAPIView):
     permission_classes = (IsAuthenticated,)
     throttle_classes = (UserRequestThrottle,)
     renderer_classes = (CustomResponseRenderer,)
@@ -83,3 +83,6 @@ class OrderRetrieveDestroy(RetrieveDestroyAPIView):
             logger.exception(f"order not found")
             raise ApplicationError(message=ex)
         return order
+
+    def destroy(self, request, *args, **kwargs):
+        delete_order(user=request.user, order_id=self.kwargs["order_id"])

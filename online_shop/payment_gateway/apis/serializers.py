@@ -8,7 +8,7 @@ class PaymentCreateSerializer(serializers.Serializer):
         choices=PaymentType.choices,
     )
 
-    cart_id = serializers.IntegerField(
+    order_id = serializers.IntegerField(
         required=False,
     )
 
@@ -23,10 +23,10 @@ class PaymentCreateSerializer(serializers.Serializer):
 
         if payment_type == PaymentType.ORDER:
 
-            if "cart_id" not in attrs:
+            if "order_id" not in attrs:
                 raise serializers.ValidationError(
                     {
-                        "cart_id": "This field is required."
+                        "order_id": "This field is required."
                     }
                 )
 

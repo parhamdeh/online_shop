@@ -6,6 +6,7 @@ from django.urls import path, include
 
 # local apps
 
+from online_shop.users.apis.orders.order_apis import OrderRetrieveDestroyAPIView, OrdersListCreateAPIView
 from online_shop.users.apis.cart.cart_apis import AddProductToCartAPIView, CartRetrieveUpdateAPIView, DeleteItemAPIView
 from online_shop.users.apis.user_apis import UserRegisterAPIView
 from online_shop.users.apis.id.user_id_apis import RetrieveProfileAPIView, RetrieveWalletAPIView, UserChangeDetailsAPIView
@@ -32,5 +33,8 @@ urlpatterns = [
     path(route="add-item/", view=AddProductToCartAPIView.as_view(), name="add_to_cart"),
     path(route="delete-item/", view=DeleteItemAPIView.as_view(), name="delete_to_cart"),
     path(route="detail-cart/", view=CartRetrieveUpdateAPIView.as_view(), name="detail_cart"),
+    # -------------------------------------orders
+    path(route="crate_list_order/", view=OrdersListCreateAPIView.as_view(), name="list_crate_order"),
+    path(route="order_detail/<int:order>/", view=OrderRetrieveDestroyAPIView.as_view(), name="order_detail"),
 
 ]

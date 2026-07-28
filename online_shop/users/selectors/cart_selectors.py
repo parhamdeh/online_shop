@@ -20,6 +20,11 @@ def get_cart_items(*, cart: CartModel, data: dict) -> QuerySet[CartItemModel]:
         product=data["product"],
     )
 
+def get_all_cart_items(*, cart: CartModel) -> QuerySet[CartItemModel]:
+    return CartItemModel.objects.filter(
+            cart=cart,
+        )
+
 def total_price(cart: CartModel):
     return (
         cart.items.aggregate(

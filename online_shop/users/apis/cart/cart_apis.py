@@ -15,7 +15,7 @@ from drf_spectacular.utils import (
 from online_shop.users.permissions import IsALLowToSeeProfile
 from online_shop.api.throttle import UserRequestThrottle
 from online_shop.api.renderer import CustomResponseRenderer
-from online_shop.users.apis.cart.cart_serializers import CartSerializer
+from online_shop.users.apis.cart.cart_serializers import CartItemSerializer, CartSerializer, AddProductToCartInputSerializer
 from online_shop.core.exceptions import ApplicationError
 from online_shop.users.selectors.cart_selectors import get_itme_by_id, get_user_cart
 from online_shop.users.services.cart_services import add_item_to_cart, change_quantity_in_cart, delete_item_from_cart
@@ -30,24 +30,45 @@ logger = logging.getLogger(__name__)
         "Adds a product to the authenticated user's shopping cart. "
         "If the product already exists in the cart, its quantity is increased."
     ),
+    request=AddProductToCartInputSerializer,
     responses={
-        201: CartSerializer,
+        201: CartItemSerializer,
     },
 )
 class AddProductToCartAPIView(CreateAPIView):
     permission_classes = [IsALLowToSeeProfile]
     throttle_classes = [UserRequestThrottle]
-    serializer_class = CartSerializer
     renderer_classes = [CustomResponseRenderer]
+
+    serializer_class = AddProductToCartInputSerializer
+
     
     def perform_create(self, serializer: BaseSerializer):
+        cart = self.request.user.user_cart.first()
         try:
-            items = add_item_to_cart(data=serializer.validated_data, cart=self.request.user.user_cart)
+            items = add_item_to_cart(data=serializer.validated_data, cart=cart)
         except Exception as ex:
             logger.exception(f"database error {ex}")
             raise ApplicationError(message=ex)
 
         serializer.instance = items
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        item = add_item_to_cart(
+            data=serializer.validated_data,
+            cart=request.user.user_cart.first()
+        )
+
+        output = CartItemSerializer(item)
+
+        return Response(
+            output.data,
+            status=201
+        )
+
 
 @extend_schema(
     tags=["Cart"],)
@@ -71,7 +92,7 @@ class CartRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     ),
     )
     def get_object(self):
-        return self.request.user.user_cart
+        return self.request.user.user_cart.first()
 
     @extend_schema(
     tags=["Cart"],

@@ -1,18 +1,29 @@
+
+# ==============================================================================
+# Imports
+# ==============================================================================
+
 import os
 from config.env import env, BASE_DIR
 
 env.read_env(os.path.join(BASE_DIR, ".env"))
 
-# SECURITY WARNING: keep the secret key used in production secret!
+
+# ==============================================================================
+# Base Configuration
+# ==============================================================================
 SECRET_KEY = env("SECRET_KEY", default='=ug_ucl@yi6^mrcjyz%(u0%&g2adt#bz3@yos%#@*t#t!ypx=a')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=True)
 
+ASGI_APPLICATION = "config.asgi.application"
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 
-# Application definition
+
+# ==============================================================================
+# Django Applications
+# ==============================================================================
 LOCAL_APPS = [
     'online_shop.core.apps.CoreConfig',
     'online_shop.common.apps.CommonConfig',
@@ -43,12 +54,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     *THIRD_PARTY_APPS,
     *LOCAL_APPS,
 ]
+
+# ==============================================================================
+# Middleware
+# ==============================================================================
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,7 +77,17 @@ MIDDLEWARE = [
     "online_shop.api.middleware.RequestLoggingMiddleware",
 ]
 
+# ==============================================================================
+# URL Configuration
+# ==============================================================================
+
 ROOT_URLCONF = 'config.urls'
+WSGI_APPLICATION = 'config.wsgi.application'
+
+
+# ==============================================================================
+# Templates
+# ==============================================================================
 
 TEMPLATES = [
     {
@@ -81,11 +105,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
-
-
+# ==============================================================================
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# ==============================================================================
 
 DATABASES = {
     'default': env.db('DATABASE_URL', default='psql://parham:paripari85@127.0.0.1:5432/online_shop'),
@@ -104,9 +126,10 @@ if os.environ.get('GITHUB_WORKFLOW'):
         }
     }
 
+# ==============================================================================
+# Authentication
+# ==============================================================================
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -124,20 +147,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 AUTH_USER_MODEL = 'users.BaseUserModel'
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'fa'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
@@ -151,13 +161,17 @@ STORAGES = {
     },
 }
 
+
+# ==============================================================================
+# Django REST Framework
+# ==============================================================================
+
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     "DEFAULT_RENDERER_CLASSES": [
         "online_shop.api.renderer.CustomResponseRenderer",
     ],
     'EXCEPTION_HANDLER': "drf_error_handler.handler.exception_handler",
-    # 'EXCEPTION_HANDLER': 'online_shop.api.exception_handlers.hacksoft_proposed_exception_handler',
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
@@ -166,15 +180,16 @@ REST_FRAMEWORK = {
     ),
 }
 
+# ==============================================================================
+# Redis Cache
+# ==============================================================================
 
-# Redis
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379",
     }
 }
-# Cache time to live is 15 minutes.
 CACHE_TTL = 60 * 15
 
 
@@ -182,11 +197,15 @@ APP_DOMAIN = env("APP_DOMAIN", default="http://localhost:8000")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_PASSWORD_VALIDATORS = [
-    # ... existing validators
     {'NAME': 'online_shop.users.validators.NumberValidator'},
     {'NAME': 'online_shop.users.validators.LetterValidator'},
     {'NAME': 'online_shop.users.validators.SpecialCharValidator'},
 ]
+
+
+# ==============================================================================
+# Logging
+# ==============================================================================
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -227,6 +246,10 @@ LOGGING = {
     },
 }
 
+
+# ==============================================================================
+# DRF Error Handler
+# ==============================================================================
 DRF_ERROR_HANDLER = {
     "VALIDATION_ERROR_BUSINESS_STATUS_CODE": 1001,
     "PARSE_ERROR_BUSINESS_STATUS_CODE": 1002,
@@ -241,7 +264,11 @@ DRF_ERROR_HANDLER = {
     "EXCEPTION_FORMATTER_CLASS": "online_shop.utils.formatters.StatusExceptionFormatter",
 }
 
-ASGI_APPLICATION = "online_shop.asgi.application"
+
+# ==============================================================================
+# WebSocket (Channels)
+# ==============================================================================
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -254,6 +281,10 @@ CHANNEL_LAYERS = {
 }
 
 
+# ==============================================================================
+# External Services
+# ==============================================================================
+
 from config.settings.kavenegar import *
 from config.settings.elastic import *
 from config.settings.zarinpal import *
@@ -262,5 +293,4 @@ from config.settings.jwt import *  # noqa
 from config.settings.sessions import *  # noqa
 from config.settings.celery import *  # noqa
 from config.settings.swagger import *  # noqa
-#from config.settings.sentry import *  # noqa
-#from config.settings.email_sending import *  # noqa
+from config.settings.unfold import *

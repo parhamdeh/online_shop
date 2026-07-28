@@ -4,6 +4,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.generics import RetrieveDestroyAPIView, ListCreateAPIView
 from rest_framework.serializers import BaseSerializer
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import (
     extend_schema,
@@ -56,7 +57,17 @@ class OrdersListCreateAPIView(ListCreateAPIView):
         
     
     def perform_create(self, serializer: BaseSerializer):
-        serializer.instance = create_order(data=serializer.validated_data, user=self.request.user)
+        return create_order(data=serializer.validated_data, user=self.request.user)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        order = self.perform_create(serializer=serializer)
+        return Response(
+            data=OrdersOutputSerializer(instance=order).data,
+            status=status.HTTP_201_CREATED
+        )
 
 @extend_schema(
     tags=["Orders"],

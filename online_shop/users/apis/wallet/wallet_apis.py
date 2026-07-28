@@ -39,7 +39,7 @@ class RetrieveWalletAPIView(RetrieveAPIView):
 
     def get_object(self):
         try:
-            wallet = get_user_wallet(user_id=self.request.user).get()
+            wallet = get_user_wallet(user=self.request.user).get()
         except Exception as ex:
             logger.exception(f"database error {ex}")
             raise ApplicationError(f"database error {ex}")

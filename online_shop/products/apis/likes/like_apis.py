@@ -71,7 +71,7 @@ class LikeAPIView(CreateAPIView):
             logger.exception(f"database error {ex}")
             raise ApplicationError(message=str(ex))
 
-        return like
+        serializer.instance = like
 
 
 @extend_schema(
@@ -113,4 +113,4 @@ class UnlikeAPIView(DestroyAPIView):
         return obj
 
     def perform_destroy(self, instance):
-        delete_like(product=instance)
+        delete_like(like_id=self.kwargs["like_id"])

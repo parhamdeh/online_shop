@@ -35,7 +35,7 @@ urlpatterns = [
     path(route="detail-cart/", view=CartRetrieveUpdateAPIView.as_view(), name="detail_cart"),
     # -------------------------------------orders
     path(route="crate_list_order/", view=OrdersListCreateAPIView.as_view(), name="list_crate_order"),
-    path(route="order_detail/<int:order>/", view=OrderRetrieveDestroyAPIView.as_view(), name="order_detail"),
+    path(route="order_detail/<int:order_id>/", view=OrderRetrieveDestroyAPIView.as_view(), name="order_detail"),
     # -------------------------------------wallet
     path(route="wallet/", view=RetrieveWalletAPIView.as_view(), name="wallet"),
     path(route="wallet/<int:order_id>/", view=UseWalletForBuyProductAPIView.as_view(), name="buy_with_wallet"),

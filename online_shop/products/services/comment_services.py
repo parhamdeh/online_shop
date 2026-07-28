@@ -16,5 +16,9 @@ def create_comment(*, data: dict, product_id: int, user) -> DjangoModelType[Comm
         user=user
     )
 
-def delete_comment(*, comment):
+def delete_comment(*, comment_id: int):
+    try:
+        comment = get_comment_by_id(comment_id=comment_id).get()
+    except Exception as ex:
+        raise ApplicationError("comment not found")
     comment.delete()

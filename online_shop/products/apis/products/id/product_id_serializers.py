@@ -26,7 +26,7 @@ class ProductDetailOutputModelSerializer(serializers.ModelSerializer):
 
 
     def get_likes_count(self, obj):
-        return obj.likes.count()
+        return obj.product_liked.count()
 
     def get_is_liked(self, obj):
         request = self.context["request"]
@@ -34,13 +34,17 @@ class ProductDetailOutputModelSerializer(serializers.ModelSerializer):
         if request.user.is_anonymous:
             return False
 
-        return obj.likes.filter(user=request.user).exists()
+        return obj.product_liked.filter(user=request.user).exists()
 
     def get_comments(self, obj):
         comments = (
-            obj.comments
-            .select_related("user_comment")
-            .order_by("-created_at")[:5]
-        )
+        obj.product_comment
+        .select_related("user")
+        .order_by("-created_at")[:5]
+    )
 
-        return CommentSerializer(comments, many=True).data
+        return CommentSerializer(
+            comments,
+            many=True,
+            context=self.context
+        ).data

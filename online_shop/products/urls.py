@@ -22,11 +22,11 @@ urlpatterns = [
     path(route="category/", view=CategoryListAPIView.as_view(), name="list_categories"),
     path(route="category/<int:category_id>/", view=RetrieveCategoryAPIView.as_view(), name="category_detail"),
     # ------------------------------comments
-    path(route="comment/", view=AddCommentAPIView.as_view(), name="add_comments"),
-    path(route="comment/<int:comment_id>/", view=DestroyCommentAPIView.as_view(), name="delete_comment"),
+    path(route="comment/<int:product_id>/", view=AddCommentAPIView.as_view(), name="add_comments"),
+    path(route="delete_comment/<int:comment_id>/", view=DestroyCommentAPIView.as_view(), name="delete_comment"),
     # ------------------------------likes
-    path(route="like/", view=LikeAPIView.as_view(), name="like"),
-    path(route="like/<int:like_id>/", view=UnlikeAPIView.as_view(), name="unlike"),
+    path(route="like/<int:product_id>/", view=LikeAPIView.as_view(), name="like"),
+    path(route="unlike/<int:like_id>/", view=UnlikeAPIView.as_view(), name="unlike"),
 
     
 ]

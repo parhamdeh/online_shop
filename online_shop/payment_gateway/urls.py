@@ -8,6 +8,7 @@ from online_shop.payment_gateway.apis import (
 )
 
 urlpatterns = [
+    # ----------------------------------buy with gateway urls--------------------#
     path(
         "create/",
         create_payment_apis.CreatePaymentAPIView.as_view(),

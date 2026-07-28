@@ -1,13 +1,14 @@
 
 
 from django.db import transaction
+from django.db.models import F, Sum
 
 from online_shop.common.types import DjangoModelType
 from online_shop.core.exceptions import ApplicationError
 from online_shop.users.services.cart_services import delete_item_from_cart
 from online_shop.users.selectors.order_selectors import get_discount, get_order_by_id
-from online_shop.users.selectors.cart_selectors import get_cart_items, total_price
-from online_shop.users.models import BaseUserModel, CartModel, OrderItemModel, OrderModel, OrderStatus
+from online_shop.users.selectors.cart_selectors import get_all_cart_items, get_cart_items, total_price
+from online_shop.users.models import BaseUserModel, CartItemModel, CartModel, OrderItemModel, OrderModel, OrderStatus
 
 
 def check_price_with_discount(*, price: int, discount_percent:int) -> int:
@@ -36,16 +37,20 @@ def create_order_item(*, order: OrderModel, cart_items: list) -> OrderItemModel:
     OrderItemModel.objects.bulk_create(order_items)
 
 def transfer_cart_itmes_to_order_items(*, cart: CartModel, order: OrderModel):
-    cart_items = (
-        get_cart_items(cart=cart).select_related("order_items")   
+    cart_items = get_all_cart_items(cart=cart)
+
+    order_items = create_order_item(
+        order=order,
+        cart_items=cart_items
     )
-    order_items = create_order_item(order=order, cart_items=cart_items)
+
     cart_items.delete()
+
     return order_items
 
 @transaction.atomic
 def create_order(*, user: BaseUserModel, data: dict) -> DjangoModelType[OrderModel]:
-    total = total_price(cart=user.user_cart)
+    total = total_price(cart=user.user_cart.first())
     discount_code = data["discount_code"]
     if not discount_code:
         discount = None
@@ -61,7 +66,7 @@ def create_order(*, user: BaseUserModel, data: dict) -> DjangoModelType[OrderMod
                                     status=OrderStatus.PENDING_PAYMENT,
                                     discount=discount
                                     )
-    transfer_cart_itmes_to_order_items(cart=user.user_cart, order=order)
+    transfer_cart_itmes_to_order_items(cart=user.user_cart.first(), order=order)
     return order
 
 def delete_order(*, order_id: int, user: BaseUserModel) -> None:

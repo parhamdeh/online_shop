@@ -4,7 +4,13 @@ from online_shop.transactions.models import Transactioans, EntryType, Transactio
 from django.db import transaction
 
 def create_transaction(*, fields: dict) -> Transactioans:
-    order = fields['order']
+    order = fields["order"]
+    if fields["transaction_type"] == "order":
+        total_amount = order.total_price + fields['commission_amount']
+    else: 
+        total_amount = fields["balance"]
+        
+
     transaction = Transactioans.objects.create(
         user=fields['user'],
         transaction_type=fields["transaction_type"],
@@ -13,23 +19,33 @@ def create_transaction(*, fields: dict) -> Transactioans:
         ref_id=fields["ref_id"],
         status=fields["status"],
         authority=fields['authority'],
-        total_amount=order.total_price + fields['commission_amount'],
+        total_amount=total_amount,
     )
     return transaction
 
 def create_transaction_entry_principal(*, transaction: Transactioans) -> TransactionEntry:
+
+    if transaction.transaction_type == "order":
+        amount = transaction.order.total_price 
+    else: 
+        amount = transaction.total_amount
+
     return TransactionEntry.objects.create(
         transaction=transaction,
         entry_type=EntryType.PRINCIPAL,
-        amount=transaction.order.total_price,
+        amount=amount,
         description="this is for principal",
     )
 
 def create_transaction_entry_commission(*, transaction: Transactioans) -> TransactionEntry:
+    # if transaction.transaction_type == "order":
+    #         amount = transaction.order.total_price 
+    # else: 
+    #     amount = transaction.total_amount
     return TransactionEntry.objects.create(
             transaction=transaction,
             entry_type=EntryType.COMMISSION,
-            amount=transaction.order.total_price,
+            amount=0,
             description="this is for commission",
         )
 

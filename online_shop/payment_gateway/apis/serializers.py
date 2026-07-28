@@ -40,3 +40,8 @@ class PaymentCreateSerializer(serializers.Serializer):
                 )
 
         return attrs
+
+
+class PaymentCreateOutputSerializer(serializers.Serializer):
+    authority = serializers.CharField()
+    payment_url = serializers.URLField()

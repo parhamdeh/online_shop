@@ -1,5 +1,7 @@
 from rest_framework.serializers import BaseSerializer
 from rest_framework.generics import CreateAPIView
+from rest_framework import status
+from rest_framework.response import Response
 from drf_spectacular.utils import (
     extend_schema,
     OpenApiParameter,
@@ -8,7 +10,7 @@ from drf_spectacular.utils import (
 )
 
 # local apps
-from online_shop.payment_gateway.apis.serializers import PaymentCreateSerializer
+from online_shop.payment_gateway.apis.serializers import PaymentCreateOutputSerializer, PaymentCreateSerializer
 from online_shop.payment_gateway.services import call_zarinpal
 
 
@@ -43,11 +45,19 @@ from online_shop.payment_gateway.services import call_zarinpal
         ),
     ],
 )
+
 class CreatePaymentAPIView(CreateAPIView):
     serializer_class = PaymentCreateSerializer
 
-    def perform_create(self, serializer):
-        serializer.instance = call_zarinpal(
-            user=self.request.user,
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        result = call_zarinpal(
+            user=request.user,
             data=serializer.validated_data,
         )
+
+        output = PaymentCreateOutputSerializer(result)
+
+        return Response(output.data, status=status.HTTP_201_CREATED)

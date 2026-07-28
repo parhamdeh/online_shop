@@ -17,23 +17,77 @@ from online_shop.users.models import BaseUserModel, OrderStatus
 
 
 
+def check_content_object(*, user: BaseUserModel, data: dict):
+    """
+    Return the target object associated with the requested payment.
+
+    Depending on the payment type, this function returns either the
+    user's order or the user's wallet. The returned object is later
+    attached to the payment as its content object.
+
+    Args:
+        user: The authenticated user.
+        data: Validated payment request data.
+
+    Returns:
+        OrderModel | WalletModel:
+            The object associated with the payment.
+    """
+    if data["payment_type"] == PaymentType.ORDER:
+        return get_order_by_id(order_id=data["order_id"], user=user).get()
+    else:
+        return user.user_wallet
+
 def create_payment(*, user, data):
-    order = get_order_by_id(order_id=data["order_id"])
+    """
+    Create a new payment record.
+
+    If the payment is for an order, the payment amount is automatically
+    calculated from the order's total price.
+
+    Args:
+        user: The authenticated user.
+        data: Validated payment request data.
+
+    Returns:
+        PaymentModel:
+            The newly created payment instance.
+    """
+    content_object = check_content_object(data=data, user=user)
+    if data["payment_type"] == PaymentType.ORDER:
+        data["amount"] = content_object.total_price
+    
     return PaymentModel.objects.create(
-        user=          user,
-        order=         order,
-        amount=        data["amount"],
-        payment_type=  data["payment_type"],
-        status=        PaymentStatus.PENDING,
+        user=           user,
+        amount=         int(data["amount"]),
+        payment_type=   data["payment_type"],
+        status=         PaymentStatus.PENDING,
+        content_object= content_object,
     )
 
 def call_zarinpal(*, user, data):
+    """
+    Create a payment and send a payment request to Zarinpal.
+
+    After creating the payment record, this function requests a payment
+    session from the gateway, stores the generated authority code,
+    and returns the payment URL.
+
+    Args:
+        user: The authenticated user.
+        data: Validated payment request data.
+
+    Returns:
+        dict:
+            Dictionary containing the authority code and payment URL.
+    """ 
+
     gateway = GatewayFactory.get("zarinpal")
     payment = create_payment(user=user, data=data)
     result = gateway.request(
-        {
+        payment={
             "price": payment.amount,
-            "description": data["description"],
+            "description": "buy from zarinpal",
             "phone": user.phone,
         }
     )
@@ -48,7 +102,19 @@ def call_zarinpal(*, user, data):
     }
     
 def wallet_charge(*, payment: PaymentModel):
-    wallet = payment.user.wallet
+    """
+    Charge the user's wallet after a successful payment.
+
+    This function updates the wallet balance, sends a real-time wallet
+    notification through WebSocket, and records the transaction.
+
+    Args:
+        payment: A verified payment instance.
+
+    Returns:
+        None
+    """
+    wallet = payment.user.user_wallet
 
     wallet.balance = F("balance") + payment.amount
 
@@ -68,12 +134,26 @@ def wallet_charge(*, payment: PaymentModel):
             "status" : TransactionStatus.VERIFIED,
             "authority" : payment.authority,
             "commission_amount" : 0,
+            "balance" : payment.amount,
         }
     
     transactions(fields=fields) 
 
 def order_payment(*, payment: PaymentModel):
-    order = payment.order
+    
+    """
+    Complete an order payment.
+
+    Marks the order as paid, transfers the payment amount to the
+    administrator wallet, and creates a transaction record.
+
+    Args:
+        payment: A verified payment instance.
+
+    Returns:
+        None
+    """
+    order = payment.content_object
     order.status = OrderStatus.PAID
 
     order.save(update_fields=["status"])
@@ -96,6 +176,19 @@ def order_payment(*, payment: PaymentModel):
     transactions(fields=fields) 
     
 def check_payment_type(*, payment: PaymentModel):
+    """
+    Execute the appropriate payment workflow.
+
+    Depending on the payment type, either charges the user's wallet
+    or completes an order payment.
+
+    Args:
+        payment: A verified payment instance.
+
+    Returns:
+        Any:
+            The result of the executed payment handler.
+    """
     payment_type = payment.payment_type
 
     if payment_type == PaymentType.ORDER:
@@ -111,6 +204,16 @@ def get_payment_by_authority(*, authority) -> PaymentModel:
 
 @transaction.atomic
 def verify_payment(*, authority: str, status: str, user):
+    """
+    Retrieve a payment by its authority code.
+
+    Args:
+        authority: Gateway authority code.
+
+    Returns:
+        QuerySet[PaymentModel]:
+            QuerySet containing the matching payment.
+    """
 
     payment = get_payment_by_authority(
         authority=authority,
@@ -124,8 +227,7 @@ def verify_payment(*, authority: str, status: str, user):
     gateway = GatewayFactory.get(payment.gateway)
 
     result = gateway.verify(
-        authority=authority,
-        amount=payment.amount,
+        payment=payment
     )
     payment.status = PaymentStatus.SUCCESS
     payment.ref_id = result["ref_id"]
@@ -135,20 +237,44 @@ def verify_payment(*, authority: str, status: str, user):
         update_fields=[
             "status",
             "ref_id",
-            "paid_at",
         ]
     )
     return check_payment_type(payment=payment)
 
-def refund_payment():
-    ...
-
 @transaction.atomic
 def use_wallet_for_buy_product(*, order_id: int, user: BaseUserModel):
-    admin_wallet = get_admin_wallet()
-    order = get_order_by_id(order_id=order_id).get()
-    price = order.total_price
+    """
+    Verify a payment through the payment gateway.
 
+    The payment is locked during verification to prevent concurrent
+    modifications. If verification succeeds, the payment information
+    is updated and the corresponding business logic is executed.
+
+    Args:
+        authority: Gateway authority code.
+        status: Payment status returned by the gateway.
+        user: The authenticated user.
+
+    Returns:
+        Any:
+            Result of the payment processing operation.
+
+    Raises:
+        ApplicationError:
+            If the payment is canceled by the user.
+    """
+    try:
+        admin_wallet = get_admin_wallet()
+
+        order = get_order_by_id(
+            order_id=order_id,
+            user=user
+        ).get()
+
+    except Exception as ex:
+        raise ApplicationError(message=ex)
+
+    price = order.total_price
     wallet = user.user_wallet
     if wallet.balance < price:
         raise ApplicationError("Insufficient wallet balance.")
@@ -156,12 +282,13 @@ def use_wallet_for_buy_product(*, order_id: int, user: BaseUserModel):
     wallet.balance = F("balance") - price
     wallet.save(update_fields=["balance"])
 
-    order.status = OrderStatus.PAID
-    order.save(update_fields=["status"])
-
     admin_wallet.balance = F("balance") + price
     admin_wallet.save(update_fields=["balance"])
     wallet.refresh_from_db()
+    print(10)
+    order.status = OrderStatus.PAID
+    order.save(update_fields=["status"])
+
     
     send_wallet_balance(
         user_id=user.id,
@@ -173,7 +300,10 @@ def use_wallet_for_buy_product(*, order_id: int, user: BaseUserModel):
             "user" : user,
             "transaction_type" : TransactionType.ORDER,
             "status" : TransactionStatus.VERIFIED,
+            "gateway" : "transaction with wallet",
             "commission_amount" : 0,
+            "ref_id" : None,
+            "authority" :  "transaction with wallet",
         }
     
     transactions(fields=fields)

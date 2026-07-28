@@ -10,6 +10,7 @@ def send_sms(phone: str, code: int):
         "phone":phone,
         "message": f"your verfication code is {code}"
     }
+    print(data)
     SMSService().send_otp(data=data)
 
 @shared_task(

@@ -46,7 +46,10 @@ def register(*, data: dict):
 
 @transaction.atomic
 def create_user_and_otp(*, data: dict):
-    user = register(data=data)
+    try:
+        user = register(data=data)
+    except Exception as ex:
+        raise ApplicationError(message="user already exist")
     otp = create_otp_code_for_user(phone=data["phone"])
     return otp
 

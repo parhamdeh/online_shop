@@ -2,6 +2,8 @@
 import logging
 from typing import Any
 from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.serializers import BaseSerializer
 from rest_framework.generics import CreateAPIView, DestroyAPIView
 from drf_spectacular.utils import (
@@ -69,7 +71,7 @@ class AddCommentAPIView(CreateAPIView):
         product = get_product_by_id(product_id=product_id).get()
         self.check_object_permissions(self.request, product)
         try:
-            comment = create_comment(serializer.validated_data, product_id=product_id, user=self.request.user)
+            comment = create_comment(data=serializer.validated_data, product_id=product_id, user=self.request.user)
         except Exception as ex:
             logger.exception(f"database error {ex}")
             raise ApplicationError(message=str(ex))
@@ -80,7 +82,12 @@ class AddCommentAPIView(CreateAPIView):
         serializer = CommentInputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        self.perform_create(serializer=serializer)
+        comment = self.perform_create(serializer=serializer)
+
+        return Response(
+            data=self.serializer_class(instance=comment).data,
+            status=status.HTTP_201_CREATED
+        )
 
 
 @extend_schema(
@@ -88,13 +95,6 @@ class AddCommentAPIView(CreateAPIView):
     summary="Delete a comment",
     description="Deletes a specific comment. Only the comment's author or an authorized user can delete it.",
     parameters=[
-        OpenApiParameter(
-            name="product_id",
-            type=int,
-            location=OpenApiParameter.PATH,
-            description="The ID of the product the comment belongs to.",
-            required=True,
-        ),
         OpenApiParameter(
             name="comment_id",
             type=int,
@@ -129,4 +129,4 @@ class DestroyCommentAPIView(DestroyAPIView):
         return obj
 
     def perform_destroy(self, instance):
-        delete_comment(product=instance)
+        delete_comment(comment_id=self.kwargs["comment_id"])

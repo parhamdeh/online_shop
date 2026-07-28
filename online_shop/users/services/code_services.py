@@ -29,12 +29,12 @@ def create_otp_code_for_user(*, phone: str) -> str:
 
 
 def check_otp(*, phone: str) -> str:
-    return OtpModel.objects.filter(phone=phone)
+    return OtpModel.objects.filter(phone=phone).order_by("created_at")
 
 def check_otp_and_update_user_is_active(*, data: dict):
     from online_shop.users.services.user_services import activate_user
     phone = data.get("phone")
-    otp = check_otp(phone=phone).get()
+    otp = check_otp(phone=phone).first()
     
     # otp_data = cache.get(phone)
 

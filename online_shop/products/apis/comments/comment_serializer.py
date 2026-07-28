@@ -15,6 +15,7 @@ class CommentSerializer(serializers.ModelSerializer):
             "content",
             "created_at",
         )
+        
 
 class CommentInputSerializer(serializers.Serializer):
     content = serializers.CharField()

@@ -24,7 +24,6 @@ from online_shop.products.models import (
 class ProductAdmin(ModelAdmin):
     paginator = InfinitePaginator
     show_full_result_count = False
-
     list_display = (
         "id",
         "title",
@@ -36,7 +35,6 @@ class ProductAdmin(ModelAdmin):
         "file_preview",
         "created_at",
     )
-
     list_filter = (
         "category",
         "price",

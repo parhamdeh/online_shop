@@ -12,7 +12,7 @@ from online_shop.products.apis.likes.like_apis import LikeAPIView, UnlikeAPIView
 
 
 urlpatterns = [
-    # ------------------------------products
+    # Products
     path(route="products/", view=PostListsAPIView.as_view(), name="list_products"),
     path(route="product/<int:product_id>/", view=ProductRetrieveAPIView.as_view(), name="product_detail"),
     # ----------------------------- searchs

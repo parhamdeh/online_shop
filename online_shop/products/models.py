@@ -9,7 +9,10 @@ from online_shop.common.models import BaseModel
 
 
 class DiscountModel(BaseModel):
-    code = models.CharField(max_length=50, unique=True, verbose_name=_("کد تخفیف"))
+    ""
+    code = models.CharField(
+        max_length=50, 
+        unique=True, verbose_name=_("کد تخفیف"))
     percent = models.IntegerField(default=0, verbose_name=_("درصد تخفیف"))
     start_date = models.DateTimeField(auto_now_add=True, verbose_name=_("روز شروع"))
     end_date = models.DateTimeField(verbose_name=_("روز پایان"))

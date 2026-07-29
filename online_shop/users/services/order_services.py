@@ -70,7 +70,7 @@ def create_order(*, user: BaseUserModel, data: dict) -> DjangoModelType[OrderMod
     return order
 
 def delete_order(*, order_id: int, user: BaseUserModel) -> None:
-    order = get_order_by_id(order_id=order_id, user=user)
+    order = get_order_by_id(order_id=order_id, user=user).get()
     order.delete()
 
 def update_order(*, order: OrderModel):

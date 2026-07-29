@@ -12,6 +12,7 @@ from unfold.paginator import InfinitePaginator
 
 # Local Apps
 from online_shop.products.models import (
+    DiscountModel,
     ProductsModel,
     CategoryModel,
     CommentsModel,
@@ -273,3 +274,45 @@ class LikeAdmin(ModelAdmin):
     @admin.display(description="کاربر")
     def get_username(self, obj):
         return obj.user.username
+
+
+@admin.register(DiscountModel)
+class DiscountAdmin(ModelAdmin):
+    paginator = InfinitePaginator
+    show_full_result_count = False
+
+    readonly_fields = (
+        "created_at",
+    )
+
+    list_display = (
+        "id",
+        "code",
+        "percent",
+        "end_date",
+    )
+
+    search_fields = (
+        "code",
+        "percent",
+    )
+
+    ordering = (
+        "-created_at",
+    )
+
+    fieldsets = (
+            (_("اطلاعات"), {
+                "fields": (
+                    "code",
+                    "percent",
+                ),
+                "classes": ("tab",),
+            }),
+            (_("تاریخ‌ها"), {
+                "fields": (
+                    "end_date",
+                ),
+                "classes": ("collapse",),
+            }),
+        )

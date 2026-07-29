@@ -169,7 +169,7 @@ class OrderModel(BaseModel):
         verbose_name_plural = _("سفارش‌ها")
 
     def __str__(self):
-        return self.order_number
+        return f"order number is {self.id}"
 
 
 class OrderItemModel(BaseModel):

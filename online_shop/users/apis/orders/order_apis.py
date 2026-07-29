@@ -60,7 +60,7 @@ class OrdersListCreateAPIView(ListCreateAPIView):
         return create_order(data=serializer.validated_data, user=self.request.user)
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         order = self.perform_create(serializer=serializer)
@@ -97,3 +97,4 @@ class OrderRetrieveDestroyAPIView(RetrieveDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         delete_order(user=request.user, order_id=self.kwargs["order_id"])
+        return Response(status=status.HTTP_204_NO_CONTENT)

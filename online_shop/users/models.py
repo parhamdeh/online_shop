@@ -37,31 +37,47 @@ class BaseUserManager(BUM):
             raise ValueError("The given username must be set")
         
         GlobalUserModel = apps.get_model(
-            self.model._meta.app_label, self.model._meta.object_name
+            self.model._meta.app_label,
+            self.model._meta.object_name
         )
         username = GlobalUserModel.normalize_username(username)
-        user = self.model(username=username, **extra_fields)
+        user = self.model(username=username,
+                          **extra_fields)
         user.password = make_password(password)
         return user
 
     def _create_user(self, username, password, **extra_fields):
-        user = self._create_user_object(username, password, **extra_fields)
+        user = self._create_user_object(
+            username,
+            password, 
+            **extra_fields
+            )
         user.save(using=self._db)
         return user
 
     def create_user(self, username, password=None, **extra_fields):
         
-        return self._create_user(username, password, **extra_fields)
+        return self._create_user(
+            username, 
+            password, 
+            **extra_fields
+            )
 
     create_user.alters_data = True
-    def create_superuser(self, username, password=None, **extra_fields):
+    def create_superuser(self, 
+                        username, 
+                        password=None, 
+                        **extra_fields
+                        ):
         from online_shop.users.services.user_services import create_wallet
         
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
 
-        user = self._create_user(username, password, **extra_fields)
+        user = self._create_user(username, 
+                                password, 
+                                **extra_fields)
         create_wallet(user=user)
         return user
     
@@ -89,8 +105,14 @@ class BaseUserModel(BaseModel, AbstractBaseUser, PermissionsMixin):
         region="IR",
         verbose_name=_("شماره تلفن ")
     )
-    is_staff = models.BooleanField(default=False, verbose_name=_("ادمین است"))
-    is_active = models.BooleanField(default=False, verbose_name=_("فعال است"))
+    is_staff = models.BooleanField(
+        default=False,
+        verbose_name=_("ادمین است")
+        )
+    is_active = models.BooleanField(
+        default=False,
+        verbose_name=_("فعال است")
+        )
     
 
     objects = BaseUserManager()
@@ -112,7 +134,12 @@ class ProfileModel(BaseModel):
     """
     Model for handle user profile and users info
     """
-    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_profile", verbose_name=_("کاربر"))
+    user = models.ForeignKey(
+        BaseUserModel,
+        on_delete=models.CASCADE,
+        related_name="user_profile",
+        verbose_name=_("کاربر")
+        )
 
     class Meta:
         ordering = ("-created_at",)
@@ -124,7 +151,12 @@ class CartModel(BaseModel):
     """
     shoping cart for handle user's targets
     """
-    user = models.ForeignKey(BaseUserModel, on_delete=models.CASCADE, related_name="user_cart", verbose_name=_("کاربر"))
+    user = models.ForeignKey(
+        BaseUserModel,
+        on_delete=models.CASCADE,
+        related_name="user_cart",
+        verbose_name=_("کاربر")
+        )
 
     class Meta:
         ordering = ("-created_at",)
@@ -153,7 +185,12 @@ class OrderModel(BaseModel):
         help_text=_("Total price of the order."),
     )
 
-    discount = models.OneToOneField(DiscountModel, on_delete=models.PROTECT, null=True, blank=True)
+    discount = models.OneToOneField(
+        DiscountModel,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
+        )
 
     status = models.CharField(
         max_length=20,
@@ -215,8 +252,19 @@ class OrderItemModel(BaseModel):
 
 
 class UserWallet(BaseModel):
-    balance = models.PositiveIntegerField(default=0, verbose_name=_("موجودی به ریال"))
-    user = models.OneToOneField(BaseUserModel, on_delete=models.PROTECT, related_name="user_wallet", verbose_name=_("کاربر"))
+    """
+    user wallet for pay products
+    """
+    balance = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("موجودی به ریال")
+        )
+    user = models.OneToOneField(
+        BaseUserModel,
+        on_delete=models.PROTECT,
+        related_name="user_wallet",
+        verbose_name=_("کاربر")
+        )
 
     class Meta:
         ordering = ("-created_at",)
@@ -237,6 +285,9 @@ class OtpModel(BaseModel):
 
 
 class CartItemModel(BaseModel):
+    """
+    class for items in cart
+    """
     cart = models.ForeignKey(
         CartModel,
         related_name="items",
@@ -250,8 +301,10 @@ class CartItemModel(BaseModel):
         verbose_name=_("محصول")
     )
 
-    quantity = models.PositiveIntegerField(default=1,
-                                           verbose_name=_("تعداد محصولات"))
+    quantity = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("تعداد محصولات")
+        )
 
     class Meta:
         ordering = ("-created_at",)

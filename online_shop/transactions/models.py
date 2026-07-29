@@ -52,7 +52,11 @@ class Transactioans(BaseModel):
         blank=True,
     )
 
-    gateway = models.CharField(_("درگاه پرداخت"), max_length=50, default="zarinpal")
+    gateway = models.CharField(
+        _("درگاه پرداخت"),
+        max_length=50,
+        default="zarinpal"
+        )
 
     authority = models.CharField(
         _("کد پیگیری درگاه (Authority)"),
@@ -85,7 +89,11 @@ class Transactioans(BaseModel):
         blank=True,
     )
 
-    verified_at = models.DateTimeField(_("زمان تأیید نهایی"), null=True, blank=True)
+    verified_at = models.DateTimeField(
+        _("زمان تأیید نهایی"),
+        null=True,
+        blank=True
+        )
 
     class Meta:
         verbose_name = _("تراکنش")
@@ -116,7 +124,9 @@ class Transactioans(BaseModel):
 
 
 class TransactionEntry(BaseModel):
-
+    """
+    the child transactions
+    """
     transaction = models.ForeignKey(
         Transactioans,
         on_delete=models.CASCADE,
@@ -130,7 +140,9 @@ class TransactionEntry(BaseModel):
         choices=EntryType.choices,
     )
 
-    amount = models.PositiveBigIntegerField(_("مبلغ (ریال)"))
+    amount = models.PositiveBigIntegerField(
+        _("مبلغ (ریال)")
+        )
 
     description = models.CharField(
         _("توضیحات"),

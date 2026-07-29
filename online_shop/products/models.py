@@ -9,13 +9,28 @@ from online_shop.common.models import BaseModel
 
 
 class DiscountModel(BaseModel):
-    ""
+    """
+    model for handle discount,
+    """
+
     code = models.CharField(
         max_length=50, 
-        unique=True, verbose_name=_("کد تخفیف"))
-    percent = models.IntegerField(default=0, verbose_name=_("درصد تخفیف"))
-    start_date = models.DateTimeField(auto_now_add=True, verbose_name=_("روز شروع"))
-    end_date = models.DateTimeField(verbose_name=_("روز پایان"))
+        unique=True, verbose_name=_("کد تخفیف")
+        )
+    
+    percent = models.IntegerField(
+        default=0,
+        verbose_name=_("درصد تخفیف")
+        )
+    
+    start_date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("روز شروع")
+        )
+    
+    end_date = models.DateTimeField(
+        verbose_name=_("روز پایان")
+        )
 
     class Meta:
         ordering = ('-created_at',)
@@ -32,7 +47,15 @@ class DiscountModel(BaseModel):
 
 
 class CategoryModel(BaseModel):
-    name = models.CharField(max_length=255, unique=True, verbose_name=_("نام دسته بندی"))
+    """
+    model for products category
+    """
+
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+        verbose_name=_("نام دسته بندی")
+        )
 
     class Meta:
         ordering = ('-created_at',)
@@ -44,16 +67,54 @@ class CategoryModel(BaseModel):
 
 
 class ProductsModel(BaseModel):
-    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name="product_category",  verbose_name=_("دسته بندی"))
-    title = models.CharField(max_length=255, verbose_name=_("تیتر "), unique=True)
-    content = models.TextField(verbose_name=_("محتوا"))
-    image = models.ImageField(upload_to="products/images/",
+    """
+    model for products
+    """
+
+    category = models.ForeignKey(
+        CategoryModel,
+        on_delete=models.CASCADE,
+        related_name="product_category",
+        verbose_name=_("دسته بندی")
+        )
+    
+    title = models.CharField(
+        max_length=255,
+        verbose_name=_("تیتر "),
+        unique=True
+        )
+    
+    content = models.TextField(
+        verbose_name=_("محتوا")
+        )
+    
+    image = models.ImageField(
+        upload_to="products/images/",
         blank=True,
-        null=True, verbose_name=_("عکس"))
-    file = models.FileField(upload_to="products/files/", blank=True, null=True, verbose_name=_("فایل ها"))
-    price = models.PositiveIntegerField(default=0, verbose_name=_("قیمت"))
-    is_active = models.BooleanField(default=False, verbose_name=_("فعال"))
-    sales_count = models.PositiveIntegerField(default=0, verbose_name=_("تعداد فروش"))
+        null=True, verbose_name=_("عکس")
+        )
+    
+    file = models.FileField(
+        upload_to="products/files/",
+        blank=True,
+        null=True,
+        verbose_name=_("فایل ها")
+        )
+    
+    price = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("قیمت")
+        )
+    
+    is_active = models.BooleanField(
+        default=False,
+        verbose_name=_("فعال")
+        )
+    
+    sales_count = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("تعداد فروش")
+        )
 
     class Meta:
         ordering = ('-created_at',)
@@ -70,10 +131,26 @@ class ProductsModel(BaseModel):
 
 
 class CommentsModel(BaseModel):
+    """
+    user comments for bouht products
+    """
+    product = models.ForeignKey(
+        ProductsModel,
+        on_delete=models.CASCADE,
+        related_name="product_comment",
+        verbose_name=_("محصول")
+        )
     
-    product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE, related_name="product_comment", verbose_name=_("محصول"))
-    user = models.ForeignKey("users.BaseUserModel", on_delete=models.CASCADE, related_name="user_comment", verbose_name=_("محصول"))
-    content = models.CharField(max_length=580)
+    user = models.ForeignKey(
+        "users.BaseUserModel",
+        on_delete=models.CASCADE,
+        related_name="user_comment",
+        verbose_name=_("محصول")
+        )
+    
+    content = models.CharField(
+        max_length=580
+        )
 
     class Meta:
         ordering = ('-created_at',)
@@ -87,10 +164,23 @@ class CommentsModel(BaseModel):
         return self.user.username
 
 
-
 class LikeModel(BaseModel):
-    product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE, related_name="product_liked", verbose_name=_("محصول"))
-    user = models.ForeignKey("users.BaseUserModel", on_delete=models.CASCADE, related_name="user_like", verbose_name=_("کاربر"))
+    """
+    user like for bought products  
+    """
+    product = models.ForeignKey(
+        ProductsModel,
+        on_delete=models.CASCADE,
+        related_name="product_liked",
+        verbose_name=_("محصول")
+        )
+    
+    user = models.ForeignKey(
+        "users.BaseUserModel",
+        on_delete=models.CASCADE,
+        related_name="user_like",
+        verbose_name=_("کاربر")
+        )
 
     class Meta:
         ordering = ('-created_at',)

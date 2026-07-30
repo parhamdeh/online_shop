@@ -32,6 +32,7 @@ LOCAL_APPS = [
     "online_shop.sms_gateway",
     "online_shop.transactions",
     "online_shop.payment_gateway",
+    "online_shop.commands",
 ]
 
 THIRD_PARTY_APPS = [

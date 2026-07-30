@@ -1,4 +1,6 @@
 # local apps
+from online_shop.users.selectors.user_selectors import get_user_by_id, get_user_wallet
+from online_shop.users.models import UserWallet
 from online_shop.transactions.models import Transactioans, EntryType, TransactionEntry
 # django built in apps
 from django.db import transaction
@@ -54,4 +56,11 @@ def transactions(*, fields: dict) -> Transactioans:
     transaction = create_transaction(fields=fields)
     create_transaction_entry_commission(transaction=transaction)
     create_transaction_entry_principal(transaction=transaction)
-    
+
+def rebuild_wallet_balance(user_id: int) -> UserWallet:
+    user = get_user_by_id(user_id=user_id)
+    wallet = get_user_wallet(user=user)
+
+    Transactioans.objects.filter(user=user).all()
+
+

@@ -14,11 +14,16 @@ class TransactionStatus(models.TextChoices):
     VERIFIED = "verified", _("تأیید شده")
     FAILED = "failed", _("ناموفق")
 
-
 class TransactionType(models.TextChoices):
-    ORDER = "order", _("پرداخت سفارش")
-    WALLET_CHARGE = "wallet_charge", _("شارژ کیف پول")
+    CHARGE = "charge", "Charge Wallet"
 
+    ORDER_BY_WALLET = "order_by_wallet", "Order By Wallet"
+
+    ORDER_BY_GATEWAY = "order_by_gateway", "Order By Gateway"
+
+    WITHDRAW = "withdraw", "Withdraw"
+
+    REFUND = "refund", "Refund"
 
 class EntryType(models.TextChoices):
     PRINCIPAL = "principal", _("مبلغ اصلی")

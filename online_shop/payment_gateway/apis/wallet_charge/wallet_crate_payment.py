@@ -10,7 +10,7 @@ from drf_spectacular.utils import (
 )
 
 # local apps
-from online_shop.payment_gateway.apis.serializers import PaymentCreateOutputSerializer, PaymentCreateSerializer
+from online_shop.online_shop.payment_gateway.apis.wallet_charge.serializer import PaymentCreateOutputSerializer, PaymentCreateSerializer
 from online_shop.payment_gateway.services import call_zarinpal
 
 
@@ -19,7 +19,7 @@ from online_shop.payment_gateway.services import call_zarinpal
     summary="Create a new payment request",
     description=(
         "Initiates a payment through the Zarinpal gateway. Supports two payment types: "
-        "paying for an existing order (`order`) or charging the user's wallet (`wallet_charge`). "
+        "paying for charging the user's wallet (`wallet_charge`). "
         "Returns the payment gateway redirect URL for the client to follow."
     ),
     request=PaymentCreateSerializer,
@@ -34,19 +34,14 @@ from online_shop.payment_gateway.services import call_zarinpal
     },
     examples=[
         OpenApiExample(
-            name="Pay for an order",
-            request_only=True,
-            value={"payment_type": "order", "order_id": 42},
-        ),
-        OpenApiExample(
             name="Charge wallet",
             request_only=True,
-            value={"payment_type": "wallet_charge", "amount": 500000},
+            value={ "amount": 500000},
         ),
     ],
 )
 
-class CreatePaymentAPIView(CreateAPIView):
+class CreateWalletPaymentAPIView(CreateAPIView):
     serializer_class = PaymentCreateSerializer
 
     def create(self, request, *args, **kwargs):

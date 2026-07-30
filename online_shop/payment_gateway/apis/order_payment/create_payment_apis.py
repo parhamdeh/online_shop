@@ -10,7 +10,7 @@ from drf_spectacular.utils import (
 )
 
 # local apps
-from online_shop.online_shop.payment_gateway.apis.order_payment.serializers import PaymentCreateOutputSerializer, PaymentCreateSerializer
+from online_shop.payment_gateway.apis.order_payment.serializers import PaymentCreateOutputSerializer, PaymentCreateSerializer
 from online_shop.payment_gateway.services import call_zarinpal
 
 

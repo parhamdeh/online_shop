@@ -19,6 +19,18 @@ from online_shop.products.models import DiscountModel, ProductsModel
 from online_shop.common.models import BaseModel
 from online_shop.products.models import ProductsModel
 
+
+
+class SelectorManager(models.Manager):
+    """
+    manager for user selectors like -> get_list and get_by_id
+    """
+    def get_user_by_id(self, *, user_id: int) -> BaseUserModel:
+        """
+        this func returns object from user model
+        """
+        return self.filter(id=user_id)
+
 class OrderStatus(models.TextChoices):
     PENDING_PAYMENT = "PENDING_PAYMENT", "در انتظار پرداخت"
     PAID = "PAID", "پرداخت شده"
@@ -116,6 +128,7 @@ class BaseUserModel(BaseModel, AbstractBaseUser, PermissionsMixin):
     
 
     objects = BaseUserManager()
+    selectors = SelectorManager()
 
    
     USERNAME_FIELD = "username"

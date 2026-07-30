@@ -31,12 +31,10 @@ def get_user_profile(*, user_id: int) -> DjangoModelType[ProfileModel]:
         raise ApplicationError("User Not Found!")
     
     return ProfileModel.objects.filter(user=user)
-     
-
-
 
 def get_inactive_users():
     return BaseUserModel.objects.filter(
         is_active=False,
         date_joined__lte=timezone.now() - timedelta(days=1),
     )
+

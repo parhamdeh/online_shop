@@ -18,3 +18,4 @@ def get_order_by_id(*, order_id: int, user: BaseUserModel) -> OrderModel:
 
 def get_order_items(*, order: OrderModel) -> QuerySet[OrderItemModel] :
     return OrderItemModel.objects.filter(order=order)
+

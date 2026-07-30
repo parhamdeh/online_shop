@@ -13,7 +13,7 @@ from online_shop.payment_gateway.enums import PaymentType, PaymentStatus
 from online_shop.payment_gateway.factory import GatewayFactory
 from online_shop.payment_gateway.models import PaymentModel
 from online_shop.core.exceptions import ApplicationError
-from online_shop.users.models import BaseUserModel, OrderStatus
+from online_shop.users.models import BaseUserModel, OrderStatus, UserWallet
 
 
 
@@ -264,47 +264,77 @@ def use_wallet_for_buy_product(*, order_id: int, user: BaseUserModel):
             If the payment is canceled by the user.
     """
     try:
-        admin_wallet = get_admin_wallet()
+        order = (
+            get_order_by_id(
+                order_id=order_id,
+                user=user,
+            )
+            .select_for_update()
+            .get()
+        )
 
-        order = get_order_by_id(
-            order_id=order_id,
-            user=user
-        ).get()
+        admin_wallet = (
+            get_admin_wallet()
+            .__class__
+            .objects.select_for_update()
+            .get(pk=get_admin_wallet().pk)
+        )
+
+        wallet = (
+            UserWallet.objects
+            .select_for_update()
+            .get(user=user)
+        )
 
     except Exception as ex:
-        raise ApplicationError(message=ex)
+        raise ApplicationError(str(ex))
+
+    if order.status == OrderStatus.PAID:
+        raise ApplicationError("Order has already been paid.")
 
     price = order.total_price
-    wallet = user.user_wallet
-    if wallet.balance < price:
-        raise ApplicationError("Insufficient wallet balance.")
-    
-    wallet.balance = F("balance") - price
-    wallet.save(update_fields=["balance"])
 
-    admin_wallet.balance = F("balance") + price
-    admin_wallet.save(update_fields=["balance"])
-    wallet.refresh_from_db()
-    print(10)
+    updated = (
+        UserWallet.objects
+        .filter(
+            pk=wallet.pk,
+            balance__gte=price,
+        )
+        .update(
+            balance=F("balance") - price,
+        )
+    )
+
+    if updated == 0:
+        raise ApplicationError("Insufficient wallet balance.")
+
+    UserWallet.objects.filter(
+        pk=admin_wallet.pk,
+    ).update(
+        balance=F("balance") + price,
+    )
+
     order.status = OrderStatus.PAID
     order.save(update_fields=["status"])
 
-    
+    wallet.refresh_from_db()
+
     send_wallet_balance(
         user_id=user.id,
         balance=wallet.balance,
     )
 
-    fields = {
+    transactions(
+        fields={
             "order": order,
-            "user" : user,
-            "transaction_type" : TransactionType.ORDER,
-            "status" : TransactionStatus.VERIFIED,
-            "gateway" : "transaction with wallet",
-            "commission_amount" : 0,
-            "ref_id" : None,
-            "authority" :  "transaction with wallet",
+            "user": user,
+            "transaction_type": TransactionType.ORDER,
+            "status": TransactionStatus.VERIFIED,
+            "gateway": "transaction with wallet",
+            "commission_amount": 0,
+            "ref_id": None,
+            "authority": "transaction with wallet",
         }
-    
-    transactions(fields=fields)
+    )
+
     return wallet
